@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOOK — Meet Your Kind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --lime:#C6FF00;
+  --black:#0b0b0b;
+  --gray:#161616;
+  --gray2:#1e1e1e;
+  --gray3:#252525;
+  --white:#f2f0e8;
+  --carta:#ede9e0;
+  --muted:rgba(242,240,232,0.42);
+  --border:rgba(242,240,232,0.08);
+}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+
+/* ── NAV ── */
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,11,11,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1200px;margin:0 auto;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;gap:24px}
+.nav-logo svg{height:24px;width:auto;display:block}
+nav.links{display:flex;gap:28px}
+nav.links a{font-size:.72rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+nav.links a:hover{color:var(--lime)}
+.nav-cta{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:var(--lime);color:var(--black);padding:9px 18px;border:none;cursor:pointer;transition:opacity .2s;white-space:nowrap}
+.nav-cta:hover{opacity:.85}
+.burger{display:none;background:none;border:1px solid var(--border);color:var(--white);cursor:pointer;width:38px;height:34px;align-items:center;justify-content:center;font-size:1rem}
+
+/* ── WORDMARK BAR ── */
+.wm-bar{overflow:hidden;border-bottom:1px solid rgba(198,255,0,0.06);padding:7px 0;background:var(--gray)}
+.wm-track{display:inline-flex;gap:40px;animation:wmt 22s linear infinite;white-space:nowrap}
+@keyframes wmt{to{transform:translateX(-50%)}}
+.wm-w{font-family:'Bebas Neue',sans-serif;font-size:.9rem;letter-spacing:.28em;color:rgba(198,255,0,0.15)}
+.wm-d{color:rgba(198,255,0,0.07)}
+
+/* ── HERO ── */
+.hero{padding:100px 28px 72px;min-height:100vh;display:flex;align-items:center;background:var(--black);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-20%;right:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(198,255,0,0.06) 0%,transparent 70%);pointer-events:none}
+.hero-grid{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;align-items:center}
+.hero-left{padding-right:16px}
+.eyebrow-row{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.eyebrow-line{width:26px;height:1.5px;background:var(--lime);flex-shrink:0}
+.eyebrow-text{font-size:.67rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--lime)}
+h1.hero-title{font-family:'Bebas Neue',sans-serif;line-height:.9;letter-spacing:.02em;text-transform:uppercase;margin-bottom:22px}
+.h1-meet{font-size:clamp(2.4rem,4.5vw,4rem);color:rgba(242,240,232,0.18);display:block}
+.h1-main{font-size:clamp(3.8rem,7vw,6.2rem);color:var(--white);display:block}
+.h1-lime{color:var(--lime)}
+.h1-dim{color:rgba(242,240,232,0.3)}
+.hero-lead{font-size:.9rem;line-height:1.78;color:var(--muted);max-width:440px;margin-bottom:26px;font-weight:300}
+.hero-lead b{color:rgba(242,240,232,0.75);font-weight:500}
+.hero-ctas{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px}
+.btn-lime{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;background:var(--lime);color:var(--black);padding:12px 22px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:opacity .2s,transform .15s}
+.btn-lime:hover{opacity:.9;transform:translateY(-1px)}
+.btn-ghost{font-family:'DM Sans',sans-serif;font-weight:400;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;background:transparent;color:rgba(242,240,232,0.55);padding:12px 20px;border:1px solid var(--border);cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:border-color .2s}
+.btn-ghost:hover{border-color:rgba(242,240,232,0.3)}
+.hero-stats{display:flex;gap:24px;padding-top:22px;border-top:1px solid var(--border)}
+.stat b{display:block;font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--lime);line-height:1;letter-spacing:.03em}
+.stat span{font-size:.62rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.hero-right{display:flex;align-items:center;justify-content:center;border-left:1px solid var(--border);padding-left:48px;min-height:480px}
+.hook-wrap{width:100%;max-width:340px}
+
+/* ── SECTION BASE ── */
+.section{padding:80px 28px}
+.wrap{max-width:1200px;margin:0 auto}
+.sec-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sec-eyebrow::before{content:'';width:24px;height:1.5px;background:var(--lime);flex-shrink:0}
+.sec-eyebrow span{font-size:.67rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--lime)}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,4.5vw,3.6rem);line-height:.92;text-transform:uppercase;letter-spacing:.02em;margin-bottom:10px}
+.sec-sub{font-size:.9rem;line-height:1.75;color:var(--muted);font-weight:300;max-width:560px}
+
+/* ── MISSION ── */
+.mission-section{background:var(--gray)}
+.mission-section .sec-eyebrow::before{background:var(--lime)}
+.mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:0}
+.mission-left p{font-size:.9rem;line-height:1.8;color:var(--muted);margin-bottom:14px}
+.mission-left p b{color:rgba(242,240,232,0.78);font-weight:500}
+.mission-left .sec-title .dim{color:rgba(242,240,232,0.18)}
+.pillars{display:flex;flex-direction:column;gap:2px}
+.pillar{background:var(--gray2);border:1px solid var(--border);padding:20px 22px;display:flex;gap:16px;align-items:flex-start;transition:border-color .2s}
+.pillar:hover{border-color:rgba(198,255,0,0.2)}
+.p-icon{width:34px;height:34px;flex-shrink:0;background:var(--gray3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.p-body b{display:block;font-size:.87rem;font-weight:600;color:var(--white);margin-bottom:4px}
+.p-body span{font-size:.8rem;line-height:1.65;color:var(--muted);font-weight:300}
+.lime-banner{background:var(--lime);padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:48px;flex-wrap:wrap}
+.banner-t{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em;color:#0b0b0b}
+.banner-s{font-size:.74rem;color:rgba(11,11,11,0.5);margin-top:2px}
+.banner-btn{font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:#0b0b0b;color:var(--lime);padding:11px 22px;border:none;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.banner-btn:hover{opacity:.85}
+
+/* ── COME FUNZIONA ── */
+.how-section{background:var(--carta);padding:72px 28px 0}
+.how-section .sec-eyebrow::before{background:var(--black)}
+.how-section .sec-eyebrow span{color:var(--black)}
+.how-section .sec-title{color:var(--black)}
+.how-section .sec-sub{color:rgba(11,11,11,0.45)}
+.how-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:16px}
+.step-counter{background:var(--black);padding:14px 20px;display:flex;flex-direction:column;align-items:flex-end;flex-shrink:0}
+.sc-num{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;line-height:1;color:var(--lime);letter-spacing:.02em}
+.sc-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,240,232,0.4);margin-top:1px}
+.journey{position:relative;max-width:580px;margin:0 auto;display:flex;flex-direction:column}
+.conn-svg{position:absolute;inset:0;width:100%;pointer-events:none;z-index:0;overflow:visible}
+.step-row{display:flex;position:relative;z-index:1;padding:22px 0}
+.step-row.left{justify-content:flex-start}
+.step-row.right{justify-content:flex-end}
+.card{width:252px;height:148px;position:relative;cursor:pointer;filter:drop-shadow(0 3px 14px rgba(11,11,11,0.1));transition:filter .3s,transform .2s}
+.card:hover{filter:drop-shadow(0 8px 28px rgba(11,11,11,0.18));transform:translateY(-2px)}
+.card-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:block}
+.card-content{position:absolute;inset:0;z-index:1;padding:20px 22px 18px;display:flex;flex-direction:column;transition:opacity .2s}
+.card:hover .card-content{opacity:0;pointer-events:none}
+.card-reveal{position:absolute;inset:0;z-index:2;padding:16px 20px;display:flex;flex-direction:column;gap:7px;opacity:0;transform:translateY(5px);transition:opacity .22s,transform .22s;pointer-events:none}
+.card:hover .card-reveal{opacity:1;transform:translateY(0)}
+.card-num{font-family:'Bebas Neue',sans-serif;font-size:.7rem;letter-spacing:.22em;color:var(--lime);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card-num::after{content:'';flex:1;height:1px;background:rgba(198,255,0,0.3)}
+.card h3{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;text-transform:uppercase;letter-spacing:.04em;color:#f2f0e8;line-height:1.05;margin-bottom:7px}
+.card p{font-size:.73rem;line-height:1.62;color:rgba(242,240,232,0.4);font-weight:300}
+.rev-label{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--lime);padding-bottom:6px;border-bottom:1px solid rgba(198,255,0,0.2);margin-bottom:2px;flex-shrink:0}
+.sb-phrase{font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:#f2f0e8;letter-spacing:.04em}
+.sb-tags{display:flex;flex-wrap:wrap;gap:4px}
+.sb-tag{font-size:.56rem;font-weight:600;padding:3px 7px;background:rgba(198,255,0,0.12);border:1px solid rgba(198,255,0,0.3);color:var(--lime)}
+.sb-tag.n{background:rgba(242,240,232,0.06);border-color:rgba(242,240,232,0.1);color:rgba(242,240,232,0.35)}
+.qr-wrap{display:flex;align-items:center;gap:10px}
+.qr-mini{width:50px;height:50px;background:#fff;padding:4px;flex-shrink:0;position:relative;overflow:hidden}
+.qr-grid-el{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;width:100%;height:100%}
+.qd{background:#0b0b0b}.qd.e{background:transparent}
+.sl{position:absolute;left:0;right:0;height:1.5px;background:var(--lime);top:0;animation:sla 2s ease-in-out infinite}
+@keyframes sla{0%{top:0}50%{top:calc(100% - 2px)}100%{top:0}}
+.qr-text{font-size:.68rem;color:rgba(242,240,232,0.5);line-height:1.5;font-weight:300}
+.cal-rows{display:flex;flex-direction:column;gap:3px}
+.cal-row{display:flex;justify-content:space-between;font-size:.63rem;padding:4px 8px}
+.cal-row.free{background:rgba(198,255,0,0.12);animation:pc 1.8s ease-in-out infinite}
+@keyframes pc{0%,100%{background:rgba(198,255,0,0.08)}50%{background:rgba(198,255,0,0.2)}}
+.ct{color:rgba(242,240,232,0.5)}.cs{font-size:.58rem;font-weight:700;letter-spacing:.07em}
+.cal-row.free .cs{color:var(--lime)}.cal-row .cs{color:rgba(242,240,232,0.18)}
+.ai-rows{display:flex;flex-direction:column;gap:4px}
+.ai-row{border-left:2px solid rgba(198,255,0,0.5);padding:3px 8px}
+.ai-time{font-size:.57rem;color:var(--lime);font-weight:700;margin-bottom:1px}
+.ai-act{font-size:.63rem;color:rgba(242,240,232,0.55);line-height:1.35;font-weight:300}
+.how-banner{background:var(--lime);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;margin-top:48px;flex-wrap:wrap;gap:12px}
+.how-banner .lf-text{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;color:#0b0b0b}
+.how-banner .lf-sub{font-size:.72rem;color:rgba(11,11,11,0.5);margin-top:1px}
+.how-banner .lf-btn{font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:#0b0b0b;color:var(--lime);padding:11px 22px;border:none;cursor:pointer}
+
+/* ── SHOP ── */
+.shop-section{background:var(--gray);padding:72px 28px 0}
+.shop-section .sec-title{color:var(--white)}
+.row-label{font-size:.6rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(242,240,232,0.22);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.row-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.shop-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:2px}
+.tee-card{background:var(--black);display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .2s}
+.tee-card:hover{background:#111}
+.tee-card.custom{background:rgba(198,255,0,0.03);border:1px dashed rgba(198,255,0,0.18)}
+.shirt-wrap{padding:20px 16px 14px;background:#0d0d0d;display:flex;justify-content:center;align-items:center;min-height:200px}
+.shirt-svg-el{width:148px;filter:drop-shadow(0 6px 20px rgba(0,0,0,0.6))}
+.tee-info{padding:14px 16px 18px;flex:1;display:flex;flex-direction:column;gap:7px;border-top:1px solid var(--border)}
+.tee-type{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(242,240,232,0.3)}
+.tee-type.custom-t{color:var(--lime)}
+.tee-phrase{font-family:'Bebas Neue',sans-serif;font-size:.95rem;text-transform:uppercase;letter-spacing:.03em;color:rgba(242,240,232,0.5);line-height:1.15;flex:1}
+.tee-phrase.custom-text{color:rgba(198,255,0,0.55);font-size:.9rem}
+.tee-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px;padding-top:10px;border-top:1px solid var(--border);gap:8px}
+.tee-price{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:rgba(242,240,232,0.35);letter-spacing:.03em;text-decoration:line-through;text-decoration-color:rgba(242,240,232,0.15)}
+.tee-btn{font-family:'DM Sans',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;padding:7px 13px;border:none;cursor:pointer;white-space:nowrap;transition:opacity .2s,background .2s,color .2s}
+.tee-btn.waitlist{background:rgba(198,255,0,0.1);color:var(--lime);border:1px solid rgba(198,255,0,0.25)}
+.tee-btn.waitlist:hover{background:var(--lime);color:#0b0b0b}
+.tee-btn.customize{background:var(--lime);color:#0b0b0b}
+.tee-btn.customize:hover{opacity:.85}
+/* LIMITED */
+.limited-banner-shop{background:var(--black);border:1px solid rgba(198,255,0,0.2);position:relative;overflow:hidden;margin-top:2px}
+.limited-banner-shop::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--lime)}
+.limited-banner-shop::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -10%,rgba(198,255,0,0.07) 0%,transparent 65%);pointer-events:none}
+.ltd-head{position:relative;z-index:1;padding:22px 24px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid rgba(198,255,0,0.1)}
+.ltd-head-left{display:flex;align-items:center;gap:14px}
+.star-box{width:40px;height:40px;background:var(--lime);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.ltd-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:rgba(198,255,0,0.6);margin-bottom:3px}
+.ltd-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.06em;color:var(--lime);line-height:1}
+.ltd-sub{font-size:.74rem;color:rgba(242,240,232,0.35);margin-top:3px;font-weight:300}
+.na-pill{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;background:rgba(198,255,0,0.08);color:rgba(198,255,0,0.45);border:1px solid rgba(198,255,0,0.2);padding:7px 14px;white-space:nowrap}
+.limited-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;position:relative;z-index:1}
+.ltd-card{background:#0f0f0f;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:background .2s}
+.ltd-card:hover{background:#131313}
+.ltd-shirt{padding:20px 14px 14px;background:linear-gradient(160deg,#111 0%,#0a0a0a 100%);display:flex;justify-content:center;align-items:center;min-height:190px;position:relative}
+.ltd-shirt svg{width:134px;filter:drop-shadow(0 6px 20px rgba(198,255,0,0.08))}
+.stamp{position:absolute;top:12px;right:12px;z-index:3;font-family:'Bebas Neue',sans-serif;font-size:.68rem;letter-spacing:.18em;background:rgba(198,255,0,0.08);color:rgba(198,255,0,0.45);border:1px solid rgba(198,255,0,0.2);padding:4px 10px}
+.ltd-info{padding:13px 16px 16px;border-top:1px solid rgba(198,255,0,0.08);display:flex;flex-direction:column;gap:5px}
+.ltd-num{font-family:'Bebas Neue',sans-serif;font-size:.67rem;letter-spacing:.2em;color:rgba(198,255,0,0.4);display:flex;align-items:center;gap:8px}
+.ltd-num::after{content:'';flex:1;height:1px;background:rgba(198,255,0,0.1)}
+.ltd-phrase{font-family:'Bebas Neue',sans-serif;font-size:.95rem;text-transform:uppercase;letter-spacing:.03em;color:rgba(242,240,232,0.6);line-height:1.2}
+
+/* ── WAITLIST ── */
+.waitlist-section{background:var(--black);padding:80px 28px 72px;position:relative;overflow:hidden;border-top:1px solid var(--border)}
+.waitlist-section::before{content:'';position:absolute;bottom:-20%;left:50%;transform:translateX(-50%);width:600px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(198,255,0,0.05) 0%,transparent 70%);pointer-events:none}
+.wl-inner{max-width:580px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.wl-eyebrow{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}
+.wl-eyebrow::before,.wl-eyebrow::after{content:'';width:24px;height:1.5px;background:var(--lime);flex-shrink:0}
+.wl-eyebrow span{font-size:.67rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--lime)}
+.wl-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,6vw,4.8rem);line-height:.92;text-transform:uppercase;letter-spacing:.02em;color:var(--white);margin-bottom:16px}
+.wl-title .accent{color:var(--lime)}
+.wl-sub{font-size:.9rem;line-height:1.75;color:var(--muted);max-width:420px;margin:0 auto 32px;font-weight:300}
+.wl-sub b{color:rgba(242,240,232,0.75);font-weight:500}
+.wl-form{display:flex;max-width:440px;margin:0 auto 14px}
+.wl-input{flex:1;background:rgba(242,240,232,0.05);border:1px solid rgba(242,240,232,0.12);border-right:none;color:var(--white);font-family:'DM Sans',sans-serif;font-size:.9rem;padding:13px 16px;outline:none;transition:border-color .2s}
+.wl-input::placeholder{color:rgba(242,240,232,0.25)}
+.wl-input:focus{border-color:rgba(198,255,0,0.4)}
+.wl-input.error{border-color:rgba(255,80,80,0.5)}
+.wl-btn{font-family:'DM Sans',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;background:var(--lime);color:#0b0b0b;padding:13px 20px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:opacity .2s}
+.wl-btn:hover{opacity:.88}
+.wl-ok{display:none;background:rgba(198,255,0,0.08);border:1px solid rgba(198,255,0,0.2);padding:13px 20px;max-width:440px;margin:0 auto;font-size:.86rem;color:var(--lime);font-weight:500;letter-spacing:.04em}
+.wl-ok.show{display:block}
+.wl-err{display:none;font-size:.78rem;color:rgba(255,120,120,0.7);margin-top:8px}
+.wl-err.show{display:block}
+.wl-note{font-size:.7rem;color:rgba(242,240,232,0.18);margin-top:12px;letter-spacing:.04em}
+
+/* ── FOOTER ── */
+footer{background:var(--gray);border-top:1px solid var(--border);padding:22px 28px}
+.foot-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.12em;color:var(--white)}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot-links a{font-size:.7rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,240,232,0.3);transition:color .2s}
+.foot-links a:hover{color:var(--lime)}
+.foot-copy{width:100%;max-width:1200px;margin:14px auto 0;padding-top:14px;border-top:1px solid var(--border);font-size:.68rem;color:rgba(242,240,232,0.18);text-align:center;letter-spacing:.06em}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-grid,.mission-grid{grid-template-columns:1fr}
+  .hero-right{border-left:none;border-top:1px solid var(--border);padding-left:0;padding-top:32px;min-height:360px}
+  nav.links{display:none}
+  .burger{display:flex}
+  .shop-row{grid-template-columns:repeat(2,1fr)}
+  .limited-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .shop-row,.limited-grid{grid-template-columns:1fr}
+  .section,.shop-section,.how-section,.waitlist-section{padding:56px 20px}
+  .hero{padding:88px 20px 56px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <div class="nav-inner">
+    <svg height="24" viewBox="0 0 200 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="LOOK">
+      <text x="0" y="37" font-family="Bebas Neue,sans-serif" font-size="40" fill="#f2f0e8" letter-spacing="-1">L</text>
+      <g transform="translate(82,22)">
+        <path d="M-10,-18 C-10,-18 -10,6 -10,10 C-10,18 -18,20 -20,14 C-21,10 -18,7 -14,8" stroke="#C6FF00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M-14,8 L-9,12 M-14,8 L-10,3" stroke="#C6FF00" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <circle cx="-10" cy="-19" r="3" fill="#C6FF00"/>
+        <path d="M10,-18 C10,-18 10,6 10,10 C10,18 18,20 20,14 C21,10 18,7 14,8" stroke="#C6FF00" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M14,8 L9,12 M14,8 L10,3" stroke="#C6FF00" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <circle cx="10" cy="-19" r="3" fill="#C6FF00"/>
+      </g>
+      <text x="152" y="37" font-family="Bebas Neue,sans-serif" font-size="40" fill="#f2f0e8" letter-spacing="-1">K</text>
+    </svg>
+    <nav class="links" id="navLinks">
+      <a href="#concept">Concept</a>
+      <a href="#come-funziona">Come funziona</a>
+      <a href="#shop">Shop</a>
+      <a href="#waitlist">Waitlist</a>
+    </nav>
+    <button class="nav-cta" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Entra nella waitlist</button>
+    <button class="burger" id="burger" aria-label="menu">☰</button>
+  </div>
+</header>
+
+<!-- WORDMARK BAR -->
+<div class="wm-bar" aria-hidden="true"><div class="wm-track" id="wmTrack"></div></div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="eyebrow-row">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Meet your kind</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="h1-meet">MEET YOUR KIND</span>
+        <span class="h1-main">IL TUO<br><span class="h1-lime">AI</span> <span>WING</span><span class="h1-lime">MAN</span><br><span class="h1-dim">DA INDOSSARE.</span></span>
+      </h1>
+      <p class="hero-lead">l'ook è la maglietta-template che rompe il ghiaccio per te: scegli un ice-breaker, riempi le bubble con i tuoi interessi, e il QR apre una mini web-app che trasforma uno sguardo in un incontro vero — un compagno d'avventura, un contatto, un'amicizia o un appuntamento.</p>
+      <div class="hero-ctas">
+        <button class="btn-lime" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Voglio la mia maglietta ↗</button>
+        <button class="btn-ghost" onclick="document.getElementById('come-funziona').scrollIntoView({behavior:'smooth'})">Come funziona</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b>1 QR</b><span>connessione reale</span></div>
+        <div class="stat"><b>∞</b><span>bubble interessi</span></div>
+        <div class="stat"><b>0</b><span>swipe infiniti</span></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hook-wrap">
+        <svg width="100%" viewBox="0 0 340 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="hglow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="8" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <text x="10" y="330" font-family="Bebas Neue,sans-serif" font-size="260" fill="rgba(242,240,232,0.025)" letter-spacing="-4">L</text>
+          <text x="186" y="330" font-family="Bebas Neue,sans-serif" font-size="260" fill="rgba(242,240,232,0.025)" letter-spacing="-4">K</text>
+          <ellipse cx="170" cy="232" rx="120" ry="120" stroke="rgba(198,255,0,0.05)" stroke-width="1"/>
+          <ellipse cx="170" cy="232" rx="150" ry="150" stroke="rgba(198,255,0,0.03)" stroke-width="1" stroke-dasharray="3 9"/>
+          <circle r="3.5" fill="#C6FF00" opacity="0.5">
+            <animateMotion dur="10s" repeatCount="indefinite"><mpath href="#op1"/></animateMotion>
+            <animate attributeName="opacity" values="0.5;0.9;0.5" dur="10s" repeatCount="indefinite"/>
+          </circle>
+          <path id="op1" d="M170,112 A120,120 0 1,1 169.9,112" fill="none"/>
+          <g filter="url(#hglow)">
+            <path stroke="#C6FF00" stroke-width="5.5" stroke-linecap="round" fill="none">
+              <animate attributeName="d" dur="5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1;0.4 0 0.2 1"
+                values="M222,128 C200,160 170,200 148,232 C126,264 108,296 108,316 C108,338 124,348 136,342 C144,338 146,330 140,324;M222,126 C199,158 169,199 147,231 C125,264 106,297 106,318 C106,341 123,351 135,345 C143,341 145,332 139,326;M222,128 C200,160 170,200 148,232 C126,264 108,296 108,316 C108,338 124,348 136,342 C144,338 146,330 140,324"/>
+            </path>
+            <path stroke="#C6FF00" stroke-width="3.5" stroke-linecap="round" fill="none">
+              <animate attributeName="d" dur="5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1;0.4 0 0.2 1"
+                values="M140,324 L148,332 M140,324 L134,316;M139,326 L147,334 M139,326 L133,318;M140,324 L148,332 M140,324 L134,316"/>
+            </path>
+            <circle cx="222" cy="126" r="6" fill="#C6FF00">
+              <animate attributeName="cy" values="126;124;126" dur="5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1;0.4 0 0.2 1"/>
+            </circle>
+          </g>
+          <g filter="url(#hglow)" transform="scale(-1,1) translate(-340,0)">
+            <path stroke="#C6FF00" stroke-width="5.5" stroke-linecap="round" fill="none">
+              <animate attributeName="d" dur="5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1;0.4 0 0.2 1"
+                values="M222,128 C200,160 170,200 148,232 C126,264 108,296 108,316 C108,338 124,348 136,342 C144,338 146,330 140,324;M222,126 C199,158 169,199 147,231 C125,264 106,297 106,318 C106,341 123,351 135,345 C143,341 145,332 139,326;M222,128 C200,160 170,200 148,232 C126,264 108,296 108,316 C108,338 124,348 136,342 C144,338 146,330 140,324"/>
+            </path>
+            <path stroke="#C6FF00" stroke-width="3.5" stroke-linecap="round" fill="none">
+              <animate attributeName="d" dur="5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1;0.4 0 0.2 1"
+                values="M140,324 L148,332 M140,324 L134,316;M139,326 L147,334 M139,326 L133,318;M140,324 L148,332 M140,324 L134,316"/>
+            </path>
+            <circle cx="222" cy="126" r="6" fill="#C6FF00">
+              <animate attributeName="cy" values="126;124;126" dur="5s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1;0.4 0 0.2 1"/>
+            </circle>
+          </g>
+          <text x="170" y="418" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="46" fill="rgba(242,240,232,0.85)" letter-spacing="10">LOOK</text>
+          <text x="170" y="440" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="8.5" fill="#C6FF00" letter-spacing="5.5" font-weight="700">MEET YOUR KIND</text>
+          <circle cx="170" cy="232" r="3.5" fill="#C6FF00" opacity="0.9">
+            <animate attributeName="r" values="3.5;6;3.5" dur="2.5s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.9;0.2;0.9" dur="2.5s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="section mission-section" id="concept">
+  <div class="wrap">
+    <div class="sec-eyebrow"><span>La nostra mission</span></div>
+    <div class="mission-grid">
+      <div class="mission-left">
+        <h2 class="sec-title">RIPORTARE LE PERSONE <span class="dim">DAL FEED</span> ALLA PIAZZA.</h2>
+        <p>Ci siamo abituati a conoscerci solo dietro uno schermo. l'ook nasce per invertire la rotta: creare connessioni <b>reali, nel mondo reale</b> — facilitate con la stessa semplicità di una dating app.</p>
+        <p>E non solo dating. <b>Meet your kind</b> vuol dire trovare la tua gente: compagni d'arrampicata, una squadra di padel, un contatto professionale o qualcuno con cui prendere un caffè. Ogni passione merita la sua connessione.</p>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><div class="p-icon">🌍</div><div class="p-body"><b>Reale, non virtuale</b><span>Niente swipe infiniti: l'incontro è di persona, qui e ora.</span></div></div>
+        <div class="pillar"><div class="p-icon">🤝</div><div class="p-body"><b>Per ogni connessione</b><span>Avventure, amicizie, hobby, business o un appuntamento: scegli tu l'intento.</span></div></div>
+        <div class="pillar"><div class="p-icon">⚡</div><div class="p-body"><b>Facilitato dall'AI</b><span>Calendario, interessi e luogo: il primo passo lo organizziamo noi.</span></div></div>
+      </div>
+    </div>
+    <div class="lime-banner">
+      <div><div class="banner-t">PIÙ INCONTRI. MENO APP.</div><div class="banner-s">Meet your kind — connessioni reali, nel mondo reale</div></div>
+      <button class="banner-btn" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Entra nella waitlist ↗</button>
+    </div>
+  </div>
+</section>
+
+<!-- COME FUNZIONA -->
+<section class="how-section" id="come-funziona">
+  <div class="wrap">
+    <div class="how-top">
+      <div>
+        <div class="sec-eyebrow"><span>Come funziona</span></div>
+        <h2 class="sec-title">DALLO SGUARDO<br>ALL'INCONTRO.</h2>
+        <p class="sec-sub">Quattro passi. Niente app. Solo vita reale.</p>
+      </div>
+      <div class="step-counter"><div class="sc-num">04</div><div class="sc-label">passi</div></div>
+    </div>
+    <div class="journey" id="journey">
+      <svg class="conn-svg" id="connSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="step-row left" id="sr1">
+        <div class="card">
+          <svg class="card-bg" viewBox="0 0 252 148" preserveAspectRatio="none"><path d="M18,0 L234,0 Q252,0 252,18 L252,130 Q252,148 234,148 L18,148 Q0,148 0,130 L0,18 Q0,0 18,0Z" fill="#0b0b0b"/><path d="M18,0 L234,0 Q252,0 252,18 L252,130 Q252,148 234,148 L18,148 Q0,148 0,130 L0,18 Q0,0 18,0Z" fill="none" stroke="#C6FF00" stroke-width="1" stroke-opacity=".2"/><path d="M0,32 L0,18 Q0,0 18,0 L32,0" fill="none" stroke="#C6FF00" stroke-width="2.5"/><path d="M252,116 L252,130 Q252,148 234,148 L220,148" fill="none" stroke="#C6FF00" stroke-width="2.5"/></svg>
+          <div class="card-content"><div class="card-num">01</div><h3>Personalizza</h3><p>Scegli template, ice-breaker e riempi le bubble con i tuoi interessi.</p></div>
+          <div class="card-reveal"><div class="rev-label">Il tuo template</div><div class="sb-phrase">"Scaliamo qualcosa?"</div><div class="sb-tags"><span class="sb-tag">Arrampicata</span><span class="sb-tag">Trekking</span><span class="sb-tag n">Outdoor</span><span class="sb-tag n">MTB</span></div></div>
+        </div>
+      </div>
+      <div class="step-row right" id="sr2">
+        <div class="card">
+          <svg class="card-bg" viewBox="0 0 252 148" preserveAspectRatio="none"><path d="M18,0 L234,0 Q252,0 252,18 L252,130 Q252,148 234,148 L18,148 Q0,148 0,130 L0,18 Q0,0 18,0Z" fill="#0b0b0b"/><path d="M18,0 L234,0 Q252,0 252,18 L252,130 Q252,148 234,148 L18,148 Q0,148 0,130 L0,18 Q0,0 18,0Z" fill="none" stroke="#C6FF00" stroke-width="1" stroke-opacity=".2"/><path d="M220,0 L234,0 Q252,0 252,18 L252,32" fill="none" stroke="#C6FF00" stroke-width="2.5"/><path d="M32,148 L18,148 Q0,148 0,130 L0,116" fill="none" stroke="#C6FF00" stroke-width="2.5"/></svg>
+          <div class="card-content"><div class="card-num">02</div><h3>Indossa & fatti notare</h3><p>Qualcuno vede la maglietta e scansiona il QR. Niente app da scaricare.</p></div>
+          <div class="card-reveal"><div class="rev-label">Scan in corso</div><div class="qr-wrap"><div class="qr-mini"><div class="qr-grid-el" id="qg"></div><div class="sl"></div></div><div class="qr-text">Si apre nel browser — nessuna installazione necessaria.</div></div></div>
+        </div>
+      </div>
+      <div class="step-row left" id="sr3">
+        <div class="card">
+          <svg class="card-bg" viewBox="0 0 252 148" preserveAspectRatio="none"><path d="M18,0 L234,0 Q252,0 252,18 L252,130 Q252,148 234,148 L18,148 Q0,148 0,130 L0,18 Q0,0 18,0Z" fill="#0b0b0b"/><path d="M18,0 L234,0 Q252,0 252,18 L252,130 Q252,148 234,148 L18,148 Q0,148 0,130 L0,18 Q0,0 18,0Z" fill="none" stroke="#C6FF00" stroke-width="1" stroke-opacity=".2"/><path d="M0,32 L0,18 Q0,0 18,0 L32,0" fill="none" stroke="#C6FF00" stroke-width="2.5"/><path d="M252,116 L252,130 Q252,148 234,148 L220,148" fill="none" stroke="#C6FF00" stroke-width="2.5"/></svg>
+          <div class="card-content"><div class="card-num">03</div><h3>Scegli quando & cosa</h3><p>Slot liberi dal calendario. Chi ti scansiona sceglie il momento.</p></div>
+          <div class="card-reveal"><div class="rev-label">Disponibilità</div><div class="cal-rows"><div class="cal-row"><span class="ct">Sab 09:00</span><span class="cs">LIBERO</span></div><div class="cal-row free"><span class="ct">Sab 14:00</span><span class="cs">SCELTO ✓</span></div><div class="cal-row"><span class="ct">Dom 10:00</span><span class="cs">OCCUPATO</span></div></div></div>
+        </div>
+      </div>
+      <div class="step-row right" id="sr4">
+        <div class="card">
+          <svg class="card-bg" viewBox="0 0 252 148" preserveAspectRatio="none"><path d="M18,0 L234,0 Q252,0 252,18 L252,130 Q252,148 234,148 L18,148 Q0,148 0,130 L0,18 Q0,0 18,0Z" fill="#0b0b0b"/><path d="M18,0 L234,0 Q252,0 252,18 L252,130 Q252,148 234,148 L18,148 Q0,148 0,130 L0,18 Q0,0 18,0Z" fill="none" stroke="#C6FF00" stroke-width="1" stroke-opacity=".2"/><path d="M220,0 L234,0 Q252,0 252,18 L252,32" fill="none" stroke="#C6FF00" stroke-width="2.5"/><path d="M32,148 L18,148 Q0,148 0,130 L0,116" fill="none" stroke="#C6FF00" stroke-width="2.5"/></svg>
+          <div class="card-content"><div class="card-num">04</div><h3>L'AI propone il reale</h3><p>Luoghi veri, aperti, vicini a voi. Si conferma. Ci si vede di persona.</p></div>
+          <div class="card-reveal"><div class="rev-label">AI plan ⚡</div><div class="ai-rows"><div class="ai-row"><div class="ai-time">14:00</div><div class="ai-act">Falesia di Cresciano</div></div><div class="ai-row"><div class="ai-time">17:30</div><div class="ai-act">Rifugio Bassa — birra post-climb</div></div><div class="ai-row"><div class="ai-time">★ 4.8</div><div class="ai-act">Basato sui vostri interessi</div></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="how-banner">
+      <div><div class="lf-text">NIENTE CHAT. SOLO L'INCONTRO.</div><div class="lf-sub">dal primo sguardo al primo appuntamento — in quattro passi</div></div>
+      <button class="lf-btn" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Voglio la mia maglietta ↗</button>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section class="shop-section" id="shop">
+  <div class="wrap">
+    <div class="sec-eyebrow"><span>Shop Online</span></div>
+    <h2 class="sec-title">SCEGLI IL TEMPLATE,<br>PERSONALIZZA LA FRASE,<br>RIEMPI LE BUBBLE.</h2>
+    <p class="sec-sub" style="margin-bottom:32px">Ogni maglietta è un template personalizzabile: scegli un ice-breaker, metti le tue passioni nelle bubble. Il QR porta a un'esperienza su misura.</p>
+    <div class="row-label">Disponibili</div>
+    <div class="shop-row" id="mainShopRow"></div>
+    <div class="limited-banner-shop">
+      <div class="ltd-head">
+        <div class="ltd-head-left">
+          <div class="star-box">★</div>
+          <div>
+            <div class="ltd-eyebrow">Edizione Limitata</div>
+            <div class="ltd-title">LIMITED DROP</div>
+            <div class="ltd-sub">Tre magliette in edizione speciale — non più disponibili.</div>
+          </div>
+        </div>
+        <div class="na-pill">★ Non disponibile</div>
+      </div>
+      <div class="limited-grid" id="limitedShopGrid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="waitlist-section" id="waitlist">
+  <div class="wl-inner">
+    <div class="wl-eyebrow"><span>Early Access</span></div>
+    <h2 class="wl-title">PRONTO A<br>TROVARE LA<br>TUA <span class="accent">GENTE?</span></h2>
+    <p class="wl-sub">Entra nella waitlist: sei tra i primi a sapere quando il drop è live, ricevi <b>accesso anticipato</b> ai template e alla web-app beta.</p>
+    <div class="wl-form" id="wlForm">
+      <input class="wl-input" id="wlEmail" type="email" placeholder="la-tua@email.com">
+      <button class="wl-btn" id="wlBtn" onclick="submitWaitlist()">Tienimi un posto ↗</button>
+    </div>
+    <div class="wl-ok" id="wlOk">⚡ Ci sei! Ti scriviamo noi per primi.</div>
+    <div class="wl-err" id="wlErr">Qualcosa è andato storto. Riprova tra poco.</div>
+    <p class="wl-note">Nessuno spam. Solo il drop e la beta. Cancellati quando vuoi.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-inner">
+    <div class="foot-logo">LOOK</div>
+    <div class="foot-links">
+      <a href="#concept">Concept</a>
+      <a href="#come-funziona">Come funziona</a>
+      <a href="#shop">Shop</a>
+      <a href="#waitlist">Waitlist</a>
+    </div>
+  </div>
+  <div class="foot-copy">© 2025 look — meet your kind · connessioni reali, nel mondo reale</div>
+</footer>
+
+<script>
+// ── AIRTABLE CONFIG ──
+const AIRTABLE_TOKEN = 'YOUR_AIRTABLE_TOKEN'; // ← sostituisci con il tuo token
+const AIRTABLE_BASE  = 'app0QZbJzhB0ELiuf';
+const AIRTABLE_TABLE = 'tblQNB8Dv8LJwYDbo';
+
+// ── WORDMARK BAR ──
+const wmWords = ['LOOK','·','MEET YOUR KIND','·','HOOK','·','DAL FEED ALLA PIAZZA','·','LOOK','·','MEET YOUR KIND','·','HOOK','·','DAL FEED ALLA PIAZZA','·'];
+const wmTrack = document.getElementById('wmTrack');
+wmWords.forEach(w => {
+  const s = document.createElement('span');
+  s.textContent = w; s.className = w==='·' ? 'wm-d' : 'wm-w';
+  wmTrack.appendChild(s);
+});
+
+// ── QR PATTERN ──
+const qp = [1,1,1,0,1,0,1,1,0,0,0,0,1,1,1,0,0,1,0,1,0,1,1,0,1,0,0,1,0,1,1,1,0,1,0,0,0,1,0,1,0,0,1,0,1,1,1,0,1];
+const qgEl = document.getElementById('qg');
+qp.forEach(p => { const d = document.createElement('div'); d.className='qd'+(p?'':' e'); qgEl.appendChild(d); });
+
+// ── CONNECTOR SVG ──
+function drawConnector() {
+  const svg = document.getElementById('connSvg');
+  const journey = document.getElementById('journey');
+  const jRect = journey.getBoundingClientRect();
+  const W = journey.offsetWidth;
+  const H = journey.offsetHeight;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  svg.setAttribute('width', W); svg.setAttribute('height', H);
+  const rows = [1,2,3,4].map(i => document.getElementById('sr'+i));
+  const pts = rows.map((r,i) => {
+    const rRect = r.getBoundingClientRect();
+    const cy = rRect.top - jRect.top + rRect.height/2;
+    const isLeft = i%2===0;
+    const cx = isLeft ? 248 : W-248;
+    return {x:cx, y:cy, left:isLeft, top:rRect.top-jRect.top, h:rRect.height};
+  });
+  let segs='', nodes='';
+  for(let i=0;i<pts.length-1;i++){
+    const a=pts[i]; const b=pts[i+1];
+    const exitX=a.isLeft?248:W-248;
+    const exitY=a.top+a.h/2+68;
+    const entryX=b.isLeft?4:W-4;
+    const entryY=b.top+b.h/2-68;
+    const cx1=exitX+(a.isLeft?60:-60);
+    const cy1=exitY+40;
+    const cx2=entryX+(b.isLeft?-60:60);
+    const cy2=entryY-40;
+    segs+=`<path d="M${exitX},${exitY} C${cx1},${cy1} ${cx2},${cy2} ${entryX},${entryY}" fill="none" stroke="rgba(11,11,11,0.2)" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+    nodes+=`<circle cx="${entryX}" cy="${entryY}" r="9" fill="rgba(198,255,0,0.12)"/><circle cx="${entryX}" cy="${entryY}" r="5" fill="#C6FF00" stroke="#ede9e0" stroke-width="2"/>`;
+  }
+  svg.innerHTML = segs+nodes;
+}
+setTimeout(drawConnector, 100);
+window.addEventListener('resize', drawConnector);
+
+// ── SHIRT SVG HELPER ──
+function makeShirtSVG(phrase, small, faded) {
+  const fs = small ? 9 : 12.5;
+  const words = phrase.split(' ');
+  let lines=[], cur='';
+  const max = small ? 13 : 14;
+  words.forEach(w => {
+    if((cur+' '+w).trim().length>max&&cur){lines.push(cur.trim());cur=w;}
+    else cur=(cur+' '+w).trim();
+  });
+  if(cur) lines.push(cur);
+  const lh = small ? 10.5 : 13.5;
+  const ty = 50;
+  const tf = faded ? 'rgba(242,240,232,0.3)' : '#f2f0e8';
+  const af = faded ? 'rgba(198,255,0,0.3)' : '#C6FF00';
+  const tb = lines.map((l,i) =>
+    `<text x="74" y="${ty+i*lh}" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="${fs}" fill="${i===lines.length-1?af:tf}" letter-spacing=".04em">${l}</text>`
+  ).join('');
+  const th = lines.length*lh;
+  const qsPat=[1,1,1,0,1,0,1,1,0,0,0,0,1,1,1,0,0,1,0,1,0,1,1,0,1,0,0,1,0,1,1,1,0,1,0,0,0,1,0,1,0,0,1,0,1,1,1,0,1];
+  const qs=38; const cs=qs/7;
+  const qx=74-qs/2; const qy=ty+th+8;
+  const qcs=qsPat.map((p,i)=>{
+    if(!p)return'';
+    return`<rect x="${qx+(i%7)*cs}" y="${qy+Math.floor(i/7)*cs}" width="${cs-.5}" height="${cs-.5}" fill="${faded?'rgba(242,240,232,0.35)':'#0b0b0b'}" rx=".4"/>`;
+  }).join('');
+  const ly=qy+qs+9;
+  const qBg=faded?'rgba(242,240,232,0.6)':'#f2f0e8';
+  const id='sg'+Math.random().toString(36).slice(2,6);
+  return `<svg viewBox="0 0 148 216" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1c1c1c"/><stop offset="100%" stop-color="#0b0b0b"/></linearGradient></defs>
+    <path d="M44,10 L24,24 L13,50 L30,58 L30,206 Q30,212 36,212 L112,212 Q118,212 118,206 L118,58 L135,50 L124,24 L104,10 Q93,24 74,24 Q55,24 44,10Z" fill="url(#${id})" stroke="rgba(242,240,232,0.06)" stroke-width=".8"/>
+    ${tb}
+    <line x1="${qx-3}" y1="${qy-5}" x2="${qx+qs+3}" y2="${qy-5}" stroke="${faded?'rgba(198,255,0,0.15)':'rgba(198,255,0,0.35)'}" stroke-width=".6"/>
+    <rect x="${qx-1}" y="${qy-1}" width="${qs+2}" height="${qs+2}" fill="${qBg}" rx="1.5"/>
+    ${qcs}
+    <rect x="${qx+qs/2-8}" y="${qy+qs/2-4}" width="16" height="8" fill="${faded?'rgba(11,11,11,0.5)':'#0b0b0b'}" rx=".8"/>
+    <text x="${qx+qs/2}" y="${qy+qs/2+2.5}" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="5" fill="${faded?'rgba(198,255,0,0.4)':'#C6FF00'}" letter-spacing="1.2">LOOK</text>
+    <text x="74" y="${ly}" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="6.5" fill="${faded?'rgba(198,255,0,0.15)':'rgba(198,255,0,0.35)'}" letter-spacing="3">LOOK</text>
+  </svg>`;
+}
+function makeCustomSVG(){
+  return`<svg viewBox="0 0 148 216" xmlns="http://www.w3.org/2000/svg">
+    <path d="M44,10 L24,24 L13,50 L30,58 L30,206 Q30,212 36,212 L112,212 Q118,212 118,206 L118,58 L135,50 L124,24 L104,10 Q93,24 74,24 Q55,24 44,10Z" fill="#141414" stroke="rgba(198,255,0,0.15)" stroke-width=".8" stroke-dasharray="3 3"/>
+    <line x1="64" y1="108" x2="84" y2="108" stroke="rgba(198,255,0,0.35)" stroke-width="1.8"/>
+    <line x1="74" y1="98" x2="74" y2="118" stroke="rgba(198,255,0,0.35)" stroke-width="1.8"/>
+    <text x="74" y="140" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(198,255,0,0.4)" letter-spacing="1.2" font-weight="600">PERSONALIZZA</text>
+  </svg>`;
+}
+
+// ── SHOP: MAIN ROW ──
+const mainTees=[
+  {phrase:"NON C'È SCONFITTA NEL CUORE DI CHI SE NE SBATTE IL CAZZO", small:true, price:'€29'},
+  {phrase:'MI CHIAVI?', small:false, price:'€29'},
+  {custom:true, price:'da €29'}
+];
+const mainRow = document.getElementById('mainShopRow');
+mainTees.forEach(t => {
+  const c = document.createElement('div');
+  c.className = 'tee-card'+(t.custom?' custom':'');
+  const shirt = t.custom ? makeCustomSVG() : makeShirtSVG(t.phrase, t.small, false);
+  const type = t.custom ? `<div class="tee-type custom-t">✦ Personalizzabile</div>` : `<div class="tee-type">— Standard</div>`;
+  const phrase = t.custom
+    ? `<div class="tee-phrase custom-text">La tua frase. Le tue bubble. Il tuo QR.</div>`
+    : `<div class="tee-phrase">"${t.phrase.charAt(0)+t.phrase.slice(1).toLowerCase()}"</div>`;
+  const foot = t.custom
+    ? `<div class="tee-foot"><span class="tee-price" style="text-decoration:none;color:rgba(242,240,232,0.6)">${t.price}</span><button class="tee-btn customize" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Personalizza →</button></div>`
+    : `<div class="tee-foot"><span class="tee-price">${t.price}</span><button class="tee-btn waitlist" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Waitlist ↗</button></div>`;
+  c.innerHTML=`<div class="shirt-wrap"><svg class="shirt-svg-el" viewBox="0 0 148 216">${shirt.replace('<svg viewBox="0 0 148 216" xmlns="http://www.w3.org/2000/svg">','').replace('</svg>','')}</svg></div><div class="tee-info">${type}${phrase}${foot}</div>`;
+  // simpler approach
+  c.innerHTML=`<div class="shirt-wrap" style="display:flex;justify-content:center;align-items:center;min-height:200px;background:#0d0d0d;padding:20px 16px 14px">${shirt.replace('viewBox','style="width:148px;filter:drop-shadow(0 6px 20px rgba(0,0,0,0.6))" viewBox')}</div><div class="tee-info">${type}${phrase}${foot}</div>`;
+  mainRow.appendChild(c);
+});
+
+// ── SHOP: LIMITED ──
+const ltdTees=[
+  {phrase:'MI DEVI DARE IL CULO', small:false},
+  {phrase:'STAREI CON UNA RICCA ANCHE SE FOSSI GAY', small:true},
+  {phrase:'ANALIZZIAMO', small:false}
+];
+const ltdGrid = document.getElementById('limitedShopGrid');
+ltdTees.forEach((t,i) => {
+  const c = document.createElement('div');
+  c.className = 'ltd-card';
+  const shirt = makeShirtSVG(t.phrase, t.small, true);
+  c.innerHTML=`
+    <div class="ltd-shirt">${shirt.replace('viewBox','style="width:134px;filter:drop-shadow(0 6px 20px rgba(198,255,0,0.08))" viewBox')}<div class="stamp">Non disp.</div></div>
+    <div class="ltd-info"><div class="ltd-num">0${i+1}</div><div class="ltd-phrase">"${t.phrase.charAt(0)+t.phrase.slice(1).toLowerCase()}"</div></div>`;
+  ltdGrid.appendChild(c);
+});
+
+// ── WAITLIST: AIRTABLE SUBMIT ──
+async function submitWaitlist() {
+  const emailEl = document.getElementById('wlEmail');
+  const email = emailEl.value.trim();
+  if (!email || !email.includes('@')) {
+    emailEl.classList.add('error');
+    return;
+  }
+  emailEl.classList.remove('error');
+  const btn = document.getElementById('wlBtn');
+  btn.textContent = '...'; btn.disabled = true;
+  try {
+    const res = await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        fields: {
+          'Email': email,
+          'Data': new Date().toISOString().split('T')[0]
+        }
+      })
+    });
+    if (res.ok) {
+      document.getElementById('wlForm').style.display = 'none';
+      document.getElementById('wlOk').classList.add('show');
+    } else {
+      throw new Error('API error');
+    }
+  } catch(e) {
+    btn.textContent = 'Tienimi un posto ↗'; btn.disabled = false;
+    document.getElementById('wlErr').classList.add('show');
+  }
+}
+// allow Enter key
+document.getElementById('wlEmail').addEventListener('keydown', e => { if(e.key==='Enter') submitWaitlist(); });
+
+// ── BURGER ──
+document.getElementById('burger').addEventListener('click', () => {
+  const nav = document.getElementById('navLinks');
+  const open = nav.style.display === 'flex';
+  Object.assign(nav.style, {
+    display: open ? 'none' : 'flex',
+    position:'fixed', top:'60px', left:'0', right:'0',
+    flexDirection:'column', background:'#0b0b0b',
+    padding:'20px 28px', gap:'16px',
+    borderBottom:'1px solid rgba(242,240,232,0.08)',
+    zIndex:'99'
+  });
+});
+document.getElementById('navLinks').addEventListener('click', () => {
+  if(window.innerWidth<=900) document.getElementById('navLinks').style.display='none';
+});
+</script>
+</body>
+</html>
