@@ -516,11 +516,82 @@ function activateConfirm(s) {
   document.getElementById('confirmVal').textContent = `${s.time} · ${s.name}`;
   const btn = document.getElementById('confirmBtn');
   btn.classList.remove('btn-disabled');
-  btn.onclick = () => {
-    btn.textContent = '✓ Richiesta inviata!';
-    btn.style.opacity = '.6';
-    btn.style.pointerEvents = 'none';
-  };
+  btn.onclick = () => openContactPopup(s);
+}
+
+function openContactPopup(s) {
+  const overlay = document.createElement('div');
+  overlay.id = 'contactOverlay';
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:999;display:flex;align-items:flex-end;padding:0';
+  overlay.innerHTML = `
+    <div style="background:#161616;width:100%;padding:28px 20px 40px;border-top:2px solid #C6FF00;box-sizing:border-box">
+      <div style="font-size:.6rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#C6FF00;margin-bottom:12px">La tua richiesta</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:#f2f0e8;margin-bottom:4px">${s.time} · ${s.name}</div>
+      <div style="font-size:.78rem;color:rgba(242,240,232,0.42);margin-bottom:24px;font-weight:300">${s.meta}</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#f2f0e8;margin-bottom:6px">E TU, CHI SEI?</div>
+      <div style="font-size:.82rem;color:rgba(242,240,232,0.42);font-weight:300;margin-bottom:20px">Lascia un contatto così possiamo confermarti l'avventura.</div>
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <button id="tabInsta" onclick="switchTab('insta')" style="flex:1;padding:10px;background:#C6FF00;color:#0b0b0b;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer">📸 Instagram</button>
+        <button id="tabMail" onclick="switchTab('mail')" style="flex:1;padding:10px;background:rgba(242,240,232,0.06);color:rgba(242,240,232,0.5);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(242,240,232,0.1);cursor:pointer">✉️ Email</button>
+      </div>
+      <div id="inputInsta" style="margin-bottom:12px">
+        <input id="valInsta" type="text" placeholder="@il_tuo_handle" style="width:100%;background:rgba(242,240,232,0.05);border:1px solid rgba(242,240,232,0.15);color:#f2f0e8;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:13px 14px;outline:none;box-sizing:border-box"/>
+      </div>
+      <div id="inputMail" style="display:none;margin-bottom:12px">
+        <input id="valMail" type="email" placeholder="la-tua@email.com" style="width:100%;background:rgba(242,240,232,0.05);border:1px solid rgba(242,240,232,0.15);color:#f2f0e8;font-family:'DM Sans',sans-serif;font-size:.9rem;padding:13px 14px;outline:none;box-sizing:border-box"/>
+      </div>
+      <button onclick="submitRequest('${s.time}', '${s.name}', '${s.meta}')" style="width:100%;background:#C6FF00;color:#0b0b0b;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;padding:15px;border:none;cursor:pointer;margin-bottom:10px;box-sizing:border-box">Proponi l'avventura →</button>
+      <button onclick="document.getElementById('contactOverlay').remove()" style="width:100%;background:transparent;color:rgba(242,240,232,0.35);font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;padding:12px;border:1px solid rgba(242,240,232,0.1);cursor:pointer;box-sizing:border-box">Annulla</button>
+    </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click', e => { if(e.target === overlay) overlay.remove(); });
+}
+
+function switchTab(tab) {
+  const ti = document.getElementById('tabInsta');
+  const tm = document.getElementById('tabMail');
+  const ii = document.getElementById('inputInsta');
+  const im = document.getElementById('inputMail');
+  if(tab === 'insta') {
+    ti.style.cssText = 'flex:1;padding:10px;background:#C6FF00;color:#0b0b0b;font-family:DM Sans,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer';
+    tm.style.cssText = 'flex:1;padding:10px;background:rgba(242,240,232,0.06);color:rgba(242,240,232,0.5);font-family:DM Sans,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(242,240,232,0.1);cursor:pointer';
+    ii.style.display = 'block'; im.style.display = 'none';
+  } else {
+    tm.style.cssText = 'flex:1;padding:10px;background:#C6FF00;color:#0b0b0b;font-family:DM Sans,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border:none;cursor:pointer';
+    ti.style.cssText = 'flex:1;padding:10px;background:rgba(242,240,232,0.06);color:rgba(242,240,232,0.5);font-family:DM Sans,sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(242,240,232,0.1);cursor:pointer';
+    im.style.display = 'block'; ii.style.display = 'none';
+  }
+}
+
+async function submitRequest(slotTime, slotName, slotMeta) {
+  const insta = document.getElementById('valInsta')?.value.trim() || '';
+  const mail  = document.getElementById('valMail')?.value.trim() || '';
+  const contact = insta || mail;
+  if (!contact) { alert('Lascia almeno un contatto!'); return; }
+  const profileName = document.getElementById('profileName').textContent;
+  try {
+    await fetch('https://api.airtable.com/v0/app0QZbJzhB0ELiuf/tblch5Z8O9eHEr8tE', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        fields: {
+          'Profilo': profileName,
+          'Slot': `${slotTime} · ${slotName}`,
+          'Instagram': insta,
+          'Email': mail,
+          'Data': new Date().toISOString().split('T')[0]
+        }
+      })
+    });
+  } catch(e) { console.log('Airtable error:', e); }
+  document.getElementById('contactOverlay').remove();
+  const btn = document.getElementById('confirmBtn');
+  btn.textContent = '✓ Richiesta inviata!';
+  btn.style.opacity = '.6';
+  btn.style.pointerEvents = 'none';
 }
 
 function resetConfirm() {
