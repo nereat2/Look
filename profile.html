@@ -177,8 +177,8 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
       <div class="wl-divider-line"></div>
     </div>
     <div class="wl-btns">
-      <a href="index.html" class="btn-outline-dark">🌐 Scopri look.co</a>
-      <a href="https://instagram.com/look_meetyourkind" target="_blank" class="btn-outline-dark" id="instaLink">📸 Seguici su Instagram</a>
+      <a href="https://www.meetlook.fun" target="_blank" class="btn-outline-dark">🌐 Scopri meetlook.fun</a>
+      <a href="https://www.instagram.com/look_meetyourkind/" target="_blank" class="btn-outline-dark">📸 Seguici su Instagram</a>
     </div>
   </div>
 </div>
@@ -216,18 +216,18 @@ const USERS = {
     activities: [
       {icon:'🤿', name:'Uscita in barca e snorkeling', tags:['Immersioni','Mare']},
       {icon:'✈️', name:'Aperitivo con travel stories', tags:['Viaggi','Social']},
-      {icon:'⚽', name:'Partita di calcetto',           tags:['Sport','Team']},
+      {icon:'🏄', name:'Giornata al mare',  tags:['Sport','Outdoor']},
       {icon:'🍦', name:'Giro gelato in città',          tags:['Gelato','Chill']},
     ],
     slots: {
       6:[
         {time:'10:00', name:'Lago di Lecco',      meta:'1h da Milano · cristallino',            ai:'snorkeling + pranzo sul lungolago'},
         {time:'15:00', name:'Bar Basso',           meta:'Milano · aperitivo storico',            ai:'aperitivo + travel stories'},
-        {time:'18:00', name:'Campo Cenisio',       meta:'Milano · calcetto 5v5',                 ai:null},
+        {time:'18:00', name:'Idroscalo Milano',    meta:'Milano · spiaggia e canottaggio',       ai:'relax in spiaggia + canoa'},
       ],
       7:[
         {time:'11:00', name:'Gelateria Artico',   meta:'Navigli · la migliore in città · 4.9★', ai:'giro gelato + passeggiata Navigli'},
-        {time:'14:00', name:'Parco Sempione',      meta:'Milano · calcetto informale',           ai:null},
+        {time:'14:00', name:'Idroscalo Milano',    meta:'Milano · sport acquatici',              ai:'sup o canoa sul lago di Milano'},
         {time:'17:00', name:'Terrazza Aperol',     meta:'Duomo · vista mozzafiato',              ai:'aperitivo + storie di viaggio'},
       ],
     },
@@ -284,7 +284,7 @@ const USERS = {
       {icon:'👨🍳', name:'Cooking session a casa mia',  tags:['Cucina','Chill']},
       {icon:'🐶',  name:'Passeggiata con i cani',       tags:['Cani','Outdoor']},
       {icon:'🍜',  name:'Tour street food in città',    tags:['Street food','Social']},
-      {icon:'🏍️',  name:'Giro in moto fuori porta',    tags:['Moto','Avventura']},
+      {icon:'🛵', name:'Giro in moto fuori porta',  tags:['Moto','Avventura']},
     ],
     slots: {
       6:[
@@ -309,7 +309,7 @@ const USERS = {
     bubbles: [
       {label:'🐶 Cani',        style:'s'},
       {label:'🏔️ Montagna',   style:'s'},
-      {label:'⚽ Sport',       style:'o'},
+      {label:'🍷 Buon vino',       style:'o'},
       {label:'🤿 Diving',      style:'o'},
       {label:'🧗 Arrampicata', style:'g'},
     ],
@@ -317,13 +317,13 @@ const USERS = {
       {icon:'🏔️', name:'Escursione in montagna',      tags:['Montagna','Natura']},
       {icon:'🐶',  name:'Passeggiata con i cani',      tags:['Cani','Outdoor']},
       {icon:'🤿',  name:'Uscita in barca e diving',    tags:['Diving','Mare']},
-      {icon:'⚽',  name:'Partita di calcetto',          tags:['Sport','Team']},
+      {icon:'🍷', name:'Degustazione vini',  tags:['Vino','Social']},
     ],
     slots: {
       6:[
         {time:'09:00', name:'Val Masino',             meta:'Valchiavenna · 1h20 da Milano · 4.9★', ai:'escursione + pranzo al rifugio'},
         {time:'14:00', name:'Parco Forlanini',         meta:'Milano · dog friendly',                ai:'passeggiata cani + caffè'},
-        {time:'18:00', name:'Campo Cenisio',           meta:'Milano · calcetto 5v5',                ai:null},
+        {time:'18:00', name:'N’Ombra de Vin',          meta:'Brera · enoteca storica e suggestiva', ai:'degustazione vini selezionati + stuzzichini'},
       ],
       7:[
         {time:'09:30', name:'Sentiero delle Orobie',  meta:'Bergamo · 1h da Milano · 4.8★',        ai:'trekking + aperitivo in quota'},
@@ -333,15 +333,37 @@ const USERS = {
     },
   },
 
-  'persona5': {
-    name: 'Nome E.',
-    insta: 'handle',
-    city: 'Città · disponibilità',
-    avatar: null,
-    initials: 'N',
-    bubbles: [{label:'☕ Caffè', style:'s'}],
-    activities: [{icon:'☕', name:'Caffè e chiacchiere', tags:['Social','Relax']}],
-    slots: {4:[{time:'10:00', name:'Caffè Letterario', meta:'Brera', ai:null}]},
+  'sonia': {
+    name: 'Sonia',
+    insta: 'vigasonia',
+    city: 'Milano · disponibile nel weekend',
+    avatar: 'assets/sonia.jpg',
+    initials: '',
+    bubbles: [
+      {label:'🎪 Festival',   style:'s'},
+      {label:'🥾 Trekking',   style:'s'},
+      {label:'⚽ Sport',      style:'o'},
+      {label:'✈️ Viaggi',     style:'o'},
+      {label:'🍜 Cibo',       style:'g'},
+    ],
+    activities: [
+      {icon:'🎪', name:'Concerto o festival live',     tags:['Festival','Musica']},
+      {icon:'🥾', name:'Escursione in montagna',        tags:['Trekking','Natura']},
+      {icon:'✈️', name:'Aperitivo con travel stories', tags:['Viaggi','Social']},
+      {icon:'🧘', name:'Yoga al parco',  tags:['Sport','Relax']},
+    ],
+    slots: {
+      6:[
+        {time:'10:00', name:'Sentiero del Viandante',  meta:'Lago di Como · 1h da Milano · 4.9★', ai:'trekking + aperitivo sul lago'},
+        {time:'15:00', name:'Mercato Comunale Isola',  meta:'Milano · street food',                ai:'giro cibo + aperitivo Isola'},
+        {time:'20:00', name:'Circolo Magnolia',        meta:'Milano · live music',                 ai:'concerto + drink dopo'},
+      ],
+      7:[
+        {time:'09:00', name:'Monte Grona',             meta:'Lago di Como · 1h20 da Milano · 4.8★', ai:'escursione + pranzo al rifugio'},
+        {time:'15:00', name:'Parco Sempione',          meta:'Milano · prato della biblioteca',       ai:'sessione yoga rilassante + infuso alle erbe'},
+        {time:'19:00', name:'Biko Milano',             meta:'Milano · live indie',                   ai:'concerto + cena Navigli'},
+      ],
+    },
   },
 
 };
