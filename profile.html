@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>LOOK — Meet Your Kind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--lime:#C6FF00;--black:#0b0b0b;--gray:#161616;--gray2:#1e1e1e;--white:#f2f0e8;--muted:rgba(242,240,232,0.42);--border:rgba(242,240,232,0.08)}
+html,body{min-height:100vh;background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.screen{display:none;flex-direction:column;min-height:100vh}
+.screen.active{display:flex}
+.look-nav{background:rgba(11,11,11,0.95);backdrop-filter:blur(8px);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;flex-shrink:0}
+.look-nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.15em;color:var(--white)}
+.look-nav-tag{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;background:rgba(198,255,0,0.1);color:var(--lime);border:1px solid rgba(198,255,0,0.2);padding:4px 9px}
+.profile-hero{background:var(--gray);padding:28px 20px 24px;border-bottom:1px solid var(--border);flex-shrink:0}
+.profile-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#2a2a2a,#1a1a1a);border:2px solid rgba(198,255,0,0.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1.7rem;color:var(--white);flex-shrink:0;position:relative;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.avatar-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid rgba(198,255,0,0.2);animation:ringpulse 2.5s ease-in-out infinite}
+@keyframes ringpulse{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.55;transform:scale(1.04)}}
+.profile-name{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.04em;color:var(--white);line-height:1}
+.profile-insta{font-size:.72rem;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:4px}
+.insta-at{color:var(--lime);font-weight:700}
+.profile-city{display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--muted);margin-top:4px}
+.city-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);flex-shrink:0}
+.profile-tagline{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;line-height:.93;letter-spacing:.02em;text-transform:uppercase;color:var(--white);margin-bottom:8px}
+.profile-tagline .accent{color:var(--lime)}
+.profile-sub{font-size:.82rem;color:var(--muted);line-height:1.65;font-weight:300}
+.bubbles-section{padding:20px;border-bottom:1px solid var(--border)}
+.section-label{font-size:.6rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.bubbles{display:flex;flex-wrap:wrap;gap:7px}
+.bubble{padding:7px 14px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+.bubble.s{background:var(--lime);color:var(--black)}
+.bubble.o{background:transparent;border:1.5px solid var(--lime);color:var(--lime)}
+.bubble.g{background:rgba(198,255,0,0.06);border:1px solid rgba(198,255,0,0.18);color:rgba(198,255,0,0.5)}
+.activities-section{padding:20px;flex:1}
+.act-grid{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.act-card{background:var(--gray2);border:1px solid var(--border);padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .2s,background .2s;position:relative;overflow:hidden}
+.act-card:active{background:#222}
+.act-card.sel{border-color:rgba(198,255,0,0.4);background:#1c1c1c}
+.act-card.sel::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--lime)}
+.act-icon{width:44px;height:44px;flex-shrink:0;background:rgba(198,255,0,0.07);border:1px solid rgba(198,255,0,0.15);display:flex;align-items:center;justify-content:center;font-size:1.3rem}
+.act-name{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.04em;color:var(--white);margin-bottom:4px}
+.act-tags{display:flex;gap:4px;flex-wrap:wrap}
+.act-tag{font-size:.58rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;background:rgba(198,255,0,0.07);border:1px solid rgba(198,255,0,0.15);color:rgba(198,255,0,0.5)}
+.act-arrow{color:rgba(198,255,0,0.4);font-size:1.2rem;font-weight:700;margin-left:auto;flex-shrink:0}
+.cta-bar{padding:16px 20px 32px;flex-shrink:0}
+.btn-lime-full{width:100%;background:var(--lime);color:var(--black);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;padding:16px;border:none;cursor:pointer;transition:opacity .2s}
+.btn-lime-full:active{opacity:.85}
+.btn-disabled{opacity:.35;pointer-events:none}
+.cal-topbar{background:var(--gray);padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.cal-back{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif}
+.cal-act-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:var(--white)}
+.week-strip{padding:16px 20px 14px;background:var(--gray);border-bottom:1px solid var(--border);flex-shrink:0}
+.week-row{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.day{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px;cursor:pointer;border-radius:4px;transition:background .15s;-webkit-tap-highlight-color:transparent}
+.day.active{background:var(--lime)}
+.day-n{font-size:.52rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.day.active .day-n{color:var(--black)}
+.day-d{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--white);line-height:1}
+.day.active .day-d{color:var(--black)}
+.day-dot{width:3px;height:3px;border-radius:50%;background:transparent}
+.day.has-slots .day-dot{background:rgba(198,255,0,0.5)}
+.day.active .day-dot{background:rgba(11,11,11,0.35)}
+.slots-section{padding:20px;flex:1}
+.slots-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+.slot{background:var(--gray2);border:1px solid var(--border);padding:13px 16px;display:flex;gap:13px;cursor:pointer;transition:border-color .2s;position:relative;-webkit-tap-highlight-color:transparent}
+.slot:active{background:#222}
+.slot.sel{border-color:rgba(198,255,0,0.35)}
+.slot.sel::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--lime)}
+.slot-time{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.06em;color:var(--lime);flex-shrink:0;min-width:50px;padding-top:1px}
+.slot-name{font-size:.82rem;font-weight:600;color:var(--white);margin-bottom:2px}
+.slot-meta{font-size:.68rem;color:var(--muted);font-weight:300}
+.ai-badge{display:inline-flex;align-items:center;gap:4px;font-size:.56rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:rgba(198,255,0,0.08);border:1px solid rgba(198,255,0,0.2);color:var(--lime);padding:3px 8px;margin-top:5px}
+.confirm-section{padding:0 20px 16px;flex-shrink:0}
+.confirm-box{background:var(--gray);border:1px solid rgba(198,255,0,0.15);padding:14px;margin-bottom:10px}
+.confirm-box-label{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);margin-bottom:4px}
+.confirm-val{font-size:.88rem;color:var(--white);font-weight:500}
+.waitlist-block{background:var(--lime);padding:28px 20px 40px;flex-shrink:0}
+.wl-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.04em;text-transform:uppercase;color:var(--black);line-height:.93;margin-bottom:7px}
+.wl-sub{font-size:.78rem;color:rgba(11,11,11,0.6);font-weight:300;line-height:1.6;margin-bottom:18px}
+.wl-form{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.wl-input{width:100%;background:rgba(11,11,11,0.1);border:1.5px solid rgba(11,11,11,0.2);color:var(--black);font-family:'DM Sans',sans-serif;font-size:.9rem;padding:13px 14px;outline:none;transition:border-color .2s}
+.wl-input::placeholder{color:rgba(11,11,11,0.4)}
+.wl-input:focus{border-color:rgba(11,11,11,0.5)}
+.wl-submit{width:100%;background:var(--black);color:var(--lime);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;padding:14px;border:none;cursor:pointer;transition:opacity .2s}
+.wl-submit:active{opacity:.85}
+.wl-ok{display:none;background:rgba(11,11,11,0.1);border:1px solid rgba(11,11,11,0.2);padding:11px 14px;font-size:.8rem;color:var(--black);font-weight:600;text-align:center;margin-bottom:14px}
+.wl-ok.show{display:block}
+.wl-divider{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.wl-divider-line{flex:1;height:1px;background:rgba(11,11,11,0.15)}
+.wl-divider-text{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(11,11,11,0.4)}
+.wl-btns{display:flex;flex-direction:column;gap:8px}
+.btn-outline-dark{width:100%;background:transparent;border:1.5px solid rgba(11,11,11,0.25);color:rgba(11,11,11,0.7);font-family:'DM Sans',sans-serif;font-weight:600;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;padding:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s;text-decoration:none}
+.btn-outline-dark:active{background:rgba(11,11,11,0.08)}
+.error-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 24px;text-align:center;gap:16px}
+.error-screen .logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.15em;color:var(--white);margin-bottom:8px}
+.error-screen p{font-size:.9rem;color:var(--muted);line-height:1.7}
+</style>
+</head>
+<body>
+
+<!-- SCREEN 1 — PROFILO -->
+<div class="screen" id="screen1">
+  <div class="look-nav">
+    <div class="look-nav-logo">LOOK</div>
+    <div class="look-nav-tag">Meet your kind</div>
+  </div>
+  <div class="profile-hero">
+    <div class="profile-top">
+      <div class="avatar" id="avatarEl"><div class="avatar-ring"></div></div>
+      <div>
+        <div class="profile-name" id="profileName"></div>
+        <div class="profile-insta"><span class="insta-at">@</span><span id="profileInsta"></span></div>
+        <div class="profile-city"><span class="city-dot"></span><span id="profileCity"></span></div>
+      </div>
+    </div>
+    <div class="profile-tagline">FACCIAMO<br><span class="accent">QUALCOSA</span><br>INSIEME?</div>
+    <div class="profile-sub">Scegli un'attività tra quelle che mi piacciono — l'AI trova il posto e il momento giusto.</div>
+  </div>
+  <div class="bubbles-section">
+    <div class="section-label">Le mie passioni</div>
+    <div class="bubbles" id="bubblesEl"></div>
+  </div>
+  <div class="activities-section">
+    <div class="section-label">Cosa vuoi fare?</div>
+    <div class="act-grid" id="actGrid"></div>
+  </div>
+  <div class="cta-bar">
+    <button class="btn-lime-full" onclick="goToCalendar()">Scegli quando →</button>
+  </div>
+</div>
+
+<!-- SCREEN 2 — CALENDARIO -->
+<div class="screen" id="screen2">
+  <div class="cal-topbar">
+    <button class="cal-back" onclick="goToScreen1()">← Indietro</button>
+    <div class="cal-act-name" id="calActName"></div>
+  </div>
+  <div class="week-strip">
+    <div class="section-label" style="margin-bottom:10px" id="weekLabel">Scegli un giorno</div>
+    <div class="week-row" id="weekRow"></div>
+  </div>
+  <div class="slots-section">
+    <div class="section-label" id="slotsLabel">Slot disponibili</div>
+    <div class="slots-list" id="slotsList"></div>
+  </div>
+  <div class="confirm-section">
+    <div class="confirm-box">
+      <div class="confirm-box-label">Il tuo piano</div>
+      <div class="confirm-val" id="confirmVal">Seleziona uno slot ↑</div>
+    </div>
+    <button class="btn-lime-full btn-disabled" id="confirmBtn">Proponi l'avventura →</button>
+  </div>
+  <div class="waitlist-block">
+    <div class="wl-title">VUOI ANCHE TU<br>LA TUA MAGLIETTA?</div>
+    <div class="wl-sub">Crea il tuo profilo, scegli le passioni, lascia che le persone vengano da te.</div>
+    <div id="wlFormWrap">
+      <div class="wl-form">
+        <input class="wl-input" id="wlEmail" type="email" placeholder="la-tua@email.com">
+        <button class="wl-submit" onclick="submitWaitlist()">Entra nella waitlist ↗</button>
+      </div>
+    </div>
+    <div class="wl-ok" id="wlOk">⚡ Ci sei! Ti scriviamo presto.</div>
+    <div class="wl-divider">
+      <div class="wl-divider-line"></div>
+      <div class="wl-divider-text">oppure</div>
+      <div class="wl-divider-line"></div>
+    </div>
+    <div class="wl-btns">
+      <a href="index.html" class="btn-outline-dark">🌐 Scopri look.co</a>
+      <a href="https://instagram.com/look_meetyourkind" target="_blank" class="btn-outline-dark" id="instaLink">📸 Seguici su Instagram</a>
+    </div>
+  </div>
+</div>
+
+<!-- ERROR SCREEN — utente non trovato -->
+<div id="errorScreen" style="display:none">
+  <div class="error-screen">
+    <div class="logo">LOOK</div>
+    <p>Profilo non trovato.<br>Questo QR potrebbe non essere ancora attivo.</p>
+    <a href="index.html" class="btn-lime-full" style="max-width:280px;display:block;text-align:center;text-decoration:none">Scopri LOOK →</a>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+//  DATI UTENTI
+//  Aggiungi qui ogni persona con il suo slug
+//  Il QR punterà a: look.co/profile?u=SLUG
+// ══════════════════════════════════════════════
+const USERS = {
+
+  'marco': {
+    name: 'Marco R.',
+    insta: 'marco.rossi',
+    city: 'Milano · disponibile questa settimana',
+    avatar: null, // oppure: 'assets/marco.jpg'
+    initials: 'M',
+    bubbles: [
+      {label:'🧗 Arrampicata', style:'s'},
+      {label:'🥾 Trekking',    style:'s'},
+      {label:'🎵 Jazz',        style:'o'},
+      {label:'📸 Fotografia',  style:'o'},
+      {label:'🍜 Street food', style:'g'},
+      {label:'🎨 Design',      style:'g'},
+    ],
+    activities: [
+      {icon:'🧗', name:'Arrampicata in falesia', tags:['Outdoor','Arrampicata']},
+      {icon:'🥾', name:'Escursione in montagna', tags:['Trekking','Natura']},
+      {icon:'🎵', name:'Aperitivo jazz live',    tags:['Jazz','Social']},
+      {icon:'📸', name:'Giro fotografico',       tags:['Fotografia','City']},
+    ],
+    slots: {
+      6:[
+        {time:'09:00', name:'Falesia di Lierna',   meta:'Como · 50 min · 4.9★', ai:'mattina in falesia + pranzo sul lago'},
+        {time:'14:00', name:'Boulder Lab Milano',  meta:'Porta Romana · indoor', ai:null},
+        {time:'17:30', name:'Falesia di Cresciano',meta:'Svizzera · 45 min',     ai:'tramonto in falesia + cena in Ticino'},
+      ],
+      7:[
+        {time:'09:00', name:'Falesia di Lierna',   meta:'Como · 50 min · 4.9★', ai:'mattina in falesia + pranzo sul lago'},
+        {time:'11:30', name:'Falesia di Cresciano',meta:'Svizzera · 45 min',     ai:'sessione lunga + birra al Rifugio Bassa'},
+        {time:'15:00', name:'Boulder Lab Milano',  meta:'Porta Romana · indoor', ai:null},
+      ],
+    },
+  },
+
+  'sara': {
+    name: 'Sara B.',
+    insta: 'sara.b',
+    city: 'Milano · disponibile nel weekend',
+    avatar: null,
+    initials: 'S',
+    bubbles: [
+      {label:'🏃 Running',     style:'s'},
+      {label:'🍕 Food',        style:'s'},
+      {label:'📚 Libri',       style:'o'},
+      {label:'🎭 Teatro',      style:'o'},
+      {label:'🌿 Natura',      style:'g'},
+    ],
+    activities: [
+      {icon:'🏃', name:'Running al Parco Sempione', tags:['Sport','Outdoor']},
+      {icon:'🍕', name:'Food tour in città',         tags:['Food','Social']},
+      {icon:'📚', name:'Club del libro',              tags:['Libri','Cultura']},
+      {icon:'🎭', name:'Serata a teatro',             tags:['Teatro','Arte']},
+    ],
+    slots: {
+      6:[
+        {time:'08:00', name:'Parco Sempione',    meta:'Milano · 5 min a piedi', ai:'corsa + colazione al bar del parco'},
+        {time:'11:00', name:'Mercato di Porta Romana', meta:'Street food giro', ai:'tour food + caffè Navigli'},
+      ],
+      8:[
+        {time:'10:00', name:'Bosco di Monza',    meta:'30 min da Milano · 4.8★', ai:'trail running + pranzo a Monza'},
+        {time:'15:00', name:'Libreria Verso',    meta:'Navigli · book club', ai:null},
+      ],
+    },
+  },
+
+  // ── AGGIUNGI LE ALTRE 3 PERSONE QUI ──
+  // Copia il blocco 'marco' e modifica i campi
+
+  'persona3': {
+    name: 'Nome C.',
+    insta: 'handle',
+    city: 'Città · disponibilità',
+    avatar: null,
+    initials: 'N',
+    bubbles: [
+      {label:'⚽ Calcetto', style:'s'},
+      {label:'🎮 Gaming',   style:'o'},
+    ],
+    activities: [
+      {icon:'⚽', name:'Partita di calcetto', tags:['Sport','Team']},
+      {icon:'🎮', name:'Gaming session',      tags:['Gaming','Indoor']},
+    ],
+    slots: {
+      7:[{time:'18:00', name:'Campo sportivo Gorla', meta:'Milano Est', ai:'calcetto + pizza dopo'}],
+    },
+  },
+
+  'persona4': {
+    name: 'Nome D.',
+    insta: 'handle',
+    city: 'Città · disponibilità',
+    avatar: null,
+    initials: 'N',
+    bubbles: [{label:'🎸 Musica', style:'s'}],
+    activities: [{icon:'🎸', name:'Concerto live', tags:['Musica','Serata']}],
+    slots: {5:[{time:'21:00', name:'Circolo Svolta', meta:'Navigli', ai:null}]},
+  },
+
+  'persona5': {
+    name: 'Nome E.',
+    insta: 'handle',
+    city: 'Città · disponibilità',
+    avatar: null,
+    initials: 'N',
+    bubbles: [{label:'☕ Caffè', style:'s'}],
+    activities: [{icon:'☕', name:'Caffè e chiacchiere', tags:['Social','Relax']}],
+    slots: {4:[{time:'10:00', name:'Caffè Letterario', meta:'Brera', ai:null}]},
+  },
+
+};
+
+// ══════════════════════════════════════════════
+//  AIRTABLE CONFIG
+// ══════════════════════════════════════════════
+const AIRTABLE_TOKEN = 'YOUR_AIRTABLE_TOKEN';
+const AIRTABLE_BASE  = 'app0QZbJzhB0ELiuf';
+const AIRTABLE_TABLE = 'tblQNB8Dv8LJwYDbo';
+
+// ══════════════════════════════════════════════
+//  WEEK CONFIG — aggiorna le date ogni settimana
+// ══════════════════════════════════════════════
+const WEEK = [
+  {n:'Lun', d:2},
+  {n:'Mar', d:3},
+  {n:'Mer', d:4},
+  {n:'Gio', d:5},
+  {n:'Ven', d:6},
+  {n:'Sab', d:7},
+  {n:'Dom', d:8},
+];
+const WEEK_LABEL = 'Giugno 2025';
+
+// ══════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════
+const params = new URLSearchParams(window.location.search);
+const slug   = (params.get('u') || '').toLowerCase();
+const user   = USERS[slug];
+
+if (!user) {
+  document.getElementById('errorScreen').style.display = 'block';
+} else {
+  initProfile(user);
+}
+
+function initProfile(u) {
+  document.title = `LOOK — ${u.name}`;
+
+  // Avatar
+  const av = document.getElementById('avatarEl');
+  if (u.avatar) {
+    av.innerHTML = `<img src="${u.avatar}" alt="${u.name}"><div class="avatar-ring"></div>`;
+  } else {
+    av.innerHTML = `${u.initials}<div class="avatar-ring"></div>`;
+  }
+
+  // Meta
+  document.getElementById('profileName').textContent = u.name;
+  document.getElementById('profileInsta').textContent = u.insta;
+  document.getElementById('profileCity').textContent  = u.city;
+
+  // Bubbles
+  const bEl = document.getElementById('bubblesEl');
+  u.bubbles.forEach(b => {
+    const s = document.createElement('span');
+    s.className = `bubble ${b.style}`;
+    s.textContent = b.label;
+    bEl.appendChild(s);
+  });
+
+  // Activities
+  const ag = document.getElementById('actGrid');
+  u.activities.forEach((a, i) => {
+    const el = document.createElement('div');
+    el.className = 'act-card' + (i === 0 ? ' sel' : '');
+    el.innerHTML = `
+      <div class="act-icon">${a.icon}</div>
+      <div style="flex:1">
+        <div class="act-name">${a.name}</div>
+        <div class="act-tags">${a.tags.map(t=>`<span class="act-tag">${t}</span>`).join('')}</div>
+      </div>
+      <div class="act-arrow">›</div>`;
+    el.onclick = () => {
+      document.querySelectorAll('.act-card').forEach(c => c.classList.remove('sel'));
+      el.classList.add('sel');
+      selectedAct = a.name;
+    };
+    ag.appendChild(el);
+  });
+
+  selectedAct = u.activities[0]?.name || '';
+  selectedDay = Object.keys(u.slots).map(Number).sort((a,b)=>a-b)[0] || WEEK[0].d;
+
+  renderWeek(u);
+  renderSlots(u);
+  document.getElementById('screen1').classList.add('active');
+}
+
+let selectedAct = '';
+let selectedDay = 7;
+let selectedSlot = null;
+
+function goToCalendar() {
+  document.getElementById('screen1').classList.remove('active');
+  document.getElementById('screen2').classList.add('active');
+  document.getElementById('calActName').textContent = selectedAct;
+  window.scrollTo(0, 0);
+}
+function goToScreen1() {
+  document.getElementById('screen2').classList.remove('active');
+  document.getElementById('screen1').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function renderWeek(u) {
+  const row = document.getElementById('weekRow');
+  row.innerHTML = '';
+  document.getElementById('weekLabel').textContent = `${WEEK_LABEL} — scegli un giorno`;
+  const userSlots = u ? u.slots : USERS[slug].slots;
+  WEEK.forEach(d => {
+    const hasSlots = !!userSlots[d.d]?.length;
+    const el = document.createElement('div');
+    el.className = 'day' + (d.d === selectedDay ? ' active' : '') + (hasSlots ? ' has-slots' : '');
+    el.innerHTML = `<div class="day-n">${d.n}</div><div class="day-d">${d.d}</div><div class="day-dot"></div>`;
+    el.onclick = () => { selectedDay = d.d; selectedSlot = null; renderWeek(); renderSlots(); resetConfirm(); };
+    row.appendChild(el);
+  });
+}
+
+function renderSlots(u) {
+  const userSlots = u ? u.slots : USERS[slug].slots;
+  const dayObj = WEEK.find(d => d.d === selectedDay);
+  document.getElementById('slotsLabel').textContent = `Slot disponibili — ${dayObj ? dayObj.n + ' ' + selectedDay : ''}`;
+  const list = document.getElementById('slotsList');
+  const slots = userSlots[selectedDay] || [];
+  list.innerHTML = '';
+  if (!slots.length) {
+    list.innerHTML = '<p style="font-size:.78rem;color:rgba(242,240,232,0.25);padding:8px 0">Nessuno slot disponibile.</p>';
+    return;
+  }
+  slots.forEach((s, i) => {
+    const el = document.createElement('div');
+    el.className = 'slot' + (selectedSlot === i ? ' sel' : '');
+    el.innerHTML = `
+      <div class="slot-time">${s.time}</div>
+      <div>
+        <div class="slot-name">${s.name}</div>
+        <div class="slot-meta">${s.meta}</div>
+        ${s.ai ? `<div class="ai-badge">⚡ AI · ${s.ai}</div>` : ''}
+      </div>`;
+    el.onclick = () => { selectedSlot = i; renderSlots(); activateConfirm(s); };
+    list.appendChild(el);
+  });
+}
+
+function activateConfirm(s) {
+  document.getElementById('confirmVal').textContent = `${s.time} · ${s.name}`;
+  const btn = document.getElementById('confirmBtn');
+  btn.classList.remove('btn-disabled');
+  btn.onclick = () => {
+    btn.textContent = '✓ Richiesta inviata!';
+    btn.style.opacity = '.6';
+    btn.style.pointerEvents = 'none';
+  };
+}
+
+function resetConfirm() {
+  document.getElementById('confirmVal').textContent = 'Seleziona uno slot ↑';
+  const btn = document.getElementById('confirmBtn');
+  btn.classList.add('btn-disabled');
+  btn.textContent = 'Proponi l\'avventura →';
+  btn.style.opacity = '';
+  btn.style.pointerEvents = '';
+}
+
+async function submitWaitlist() {
+  const email = document.getElementById('wlEmail').value.trim();
+  if (!email || !email.includes('@')) return;
+  const btn = document.querySelector('.wl-submit');
+  btn.textContent = '...'; btn.disabled = true;
+  try {
+    await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`, {
+      method: 'POST',
+      headers: {'Authorization': `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json'},
+      body: JSON.stringify({fields: {'Email': email, 'Data': new Date().toISOString().split('T')[0]}})
+    });
+    document.getElementById('wlFormWrap').style.display = 'none';
+    document.getElementById('wlOk').classList.add('show');
+  } catch(e) {
+    btn.textContent = 'Entra nella waitlist ↗'; btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>

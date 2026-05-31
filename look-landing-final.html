@@ -71,6 +71,7 @@ h1.hero-title{font-family:'Bebas Neue',sans-serif;line-height:.9;letter-spacing:
 .hook-wrap{width:100%;max-width:340px}
 
 /* ── SECTION BASE ── */
+.section, .mission-section, .how-section, .shop-section, .waitlist-section{scroll-margin-top: 100px}
 .section{padding:80px 28px}
 .wrap{max-width:1200px;margin:0 auto}
 .sec-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:16px}
@@ -85,9 +86,8 @@ h1.hero-title{font-family:'Bebas Neue',sans-serif;line-height:.9;letter-spacing:
 .mission-section .wrap{padding:0 28px 48px}
 .mission-section .sec-eyebrow::before{background:var(--lime)}
 .mission-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-top:0}
-.mission-title{font-family:'DM Sans',sans-serif;font-size:clamp(2rem,3.8vw,3.2rem);font-weight:300;line-height:1.1;text-transform:uppercase;letter-spacing:.02em;margin-bottom:18px;color:rgba(242,240,232,0.5)}
-.mission-title .weight-medium{font-weight:500;color:rgba(242,240,232,0.85)}
-.mission-title .weight-bold{font-weight:800;color:var(--white)}
+.mission-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,4.5vw,3.6rem);line-height:.92;text-transform:uppercase;letter-spacing:.02em;margin-bottom:18px;color:var(--white)}
+.mission-title .accent{color:var(--lime)}
 .mission-left p{font-size:.95rem;line-height:1.8;color:rgba(242,240,232,0.78);margin-bottom:14px}
 .mission-left p b{color:var(--lime);font-weight:600}
 .pillars{display:flex;flex-direction:column;gap:12px}
@@ -421,7 +421,7 @@ footer{background:var(--gray);border-top:1px solid var(--border);padding:22px 28
     <div class="sec-eyebrow"><span>La nostra mission</span></div>
     <div class="mission-grid">
       <div class="mission-left">
-        <h2 class="mission-title">Riportare le persone <span class="weight-medium">dal feed</span> <span class="weight-bold">alla piazza.</span></h2>
+        <h2 class="mission-title">RIPORTARE LE PERSONE<br>DAL FEED <span class="accent">ALLA PIAZZA.</span></h2>
         <p>Ci siamo abituati a conoscerci solo dietro uno schermo. Look nasce per invertire la rotta: creare connessioni <b>reali, nel mondo reale</b> — facilitate con la stessa semplicità di una dating app.</p>
         <p>E non solo dating. <b>Meet your kind</b> vuol dire trovare la tua gente: compagni d'arrampicata, una squadra di padel, un contatto professionale o qualcuno con cui prendere un caffè. Ogni passione merita la sua connessione.</p>
       </div>
@@ -666,9 +666,9 @@ function makeCustomSVG(){
 
 // ── SHOP: MAIN ROW ──
 const mainTees=[
-  {phrase:"NON C'È SCONFITTA NEL CUORE DI CHI SE NE SBATTE IL CAZZO", small:true, price:'€29', imageBase:'assets/look-sconfitta.png', imageHover:'assets/look-sconfitta-tags.png'},
-  {phrase:'MI CHIAVI?', small:false, price:'€29', imageBase:'assets/look-michiavi1.png', imageHover:'assets/look-michiavi2.png'},
-  {custom:true, price:'da €29'}
+  {phrase:"NON C'È SCONFITTA NEL CUORE DI CHI SE NE SBATTE IL CAZZO", small:true, imageBase:'assets/look-sconfitta.png', imageHover:'assets/look-sconfitta-tags.png'},
+  {phrase:'MI CHIAVI?', small:false, imageBase:'assets/look-michiavi1.png', imageHover:'assets/look-michiavi2.png'},
+  {custom:true}
 ];
 const mainRow = document.getElementById('mainShopRow');
 mainTees.forEach(t => {
@@ -691,8 +691,8 @@ mainTees.forEach(t => {
     ? `<div class="tee-phrase custom-text">La tua frase. Le tue bubble. Il tuo QR.</div>`
     : `<div class="tee-phrase">"${t.phrase.charAt(0)+t.phrase.slice(1).toLowerCase()}"</div>`;
   const foot = t.custom
-    ? `<div class="tee-foot"><span class="tee-price" style="text-decoration:none;color:rgba(242,240,232,0.6)">${t.price}</span><button class="tee-btn customize" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Personalizza →</button></div>`
-    : `<div class="tee-foot"><span class="tee-price">${t.price}</span><button class="tee-btn waitlist" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Waitlist ↗</button></div>`;
+    ? `<div class="tee-foot"><button class="tee-btn customize" style="width:100%;text-align:center;" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Personalizza →</button></div>`
+    : `<div class="tee-foot"><button class="tee-btn waitlist" style="width:100%;text-align:center;" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Waitlist ↗</button></div>`;
 
   if (t.imageBase) {
     c.innerHTML = `<div class="shirt-wrap" style="padding:0;min-height:unset;background:#0d0d0d;position:relative;overflow:hidden;display:block;">${shirtHTML}</div><div class="tee-info">${type}${phrase}${foot}</div>`;
