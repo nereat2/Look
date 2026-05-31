@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>LOOK — Il Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--lime:#C6FF00;--black:#0b0b0b;--gray:#161616;--gray2:#1e1e1e;--white:#f2f0e8;--muted:rgba(242,240,232,0.42);--border:rgba(242,240,232,0.08)}
+html,body{min-height:100vh;background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+.look-nav{background:rgba(11,11,11,0.95);backdrop-filter:blur(8px);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}
+.look-nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.15em;color:var(--white)}
+.look-nav-tag{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;background:rgba(198,255,0,0.1);color:var(--lime);border:1px solid rgba(198,255,0,0.2);padding:4px 9px}
+
+.team-hero{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--gray2)}
+.team-hero img{width:100%;height:100%;object-fit:cover;display:block}
+.team-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(11,11,11,0.95) 100%)}
+.team-hero-text{position:absolute;bottom:0;left:0;right:0;padding:24px 20px}
+.team-name{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.04em;color:var(--white);line-height:1;margin-bottom:4px}
+.team-handle{font-size:.72rem;color:var(--lime);font-weight:700;display:flex;align-items:center;gap:4px}
+
+.tagline-block{padding:24px 20px;border-bottom:1px solid var(--border);background:var(--gray)}
+.tagline-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--lime);margin-bottom:8px}
+.tagline-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;line-height:.93;text-transform:uppercase;color:var(--white);margin-bottom:10px}
+.tagline-title .accent{color:var(--lime)}
+.tagline-sub{font-size:.84rem;line-height:1.7;color:var(--muted);font-weight:300}
+
+.team-section{padding:20px;border-bottom:1px solid var(--border)}
+.section-label{font-size:.6rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.members{display:flex;flex-direction:column;gap:8px}
+.member{background:var(--gray2);border:1px solid var(--border);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.member-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.06em;color:var(--white)}
+.member-role{font-size:.65rem;color:var(--muted);font-weight:300;text-align:right;max-width:160px}
+
+.cta-section{padding:20px;display:flex;flex-direction:column;gap:10px}
+.btn-lime-full{width:100%;background:var(--lime);color:var(--black);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;padding:15px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .2s}
+.btn-lime-full:hover{opacity:.88}
+.btn-outline{width:100%;background:transparent;color:rgba(242,240,232,0.6);font-family:'DM Sans',sans-serif;font-weight:600;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;padding:13px;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:border-color .2s}
+.btn-outline:hover{border-color:rgba(242,240,232,0.25)}
+
+.waitlist-block{background:var(--lime);padding:24px 20px 40px}
+.wl-title{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.04em;text-transform:uppercase;color:var(--black);line-height:.93;margin-bottom:6px}
+.wl-sub{font-size:.76rem;color:rgba(11,11,11,0.6);font-weight:300;line-height:1.6;margin-bottom:16px}
+.wl-form{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.wl-input{width:100%;background:rgba(11,11,11,0.1);border:1.5px solid rgba(11,11,11,0.2);color:var(--black);font-family:'DM Sans',sans-serif;font-size:.9rem;padding:13px 14px;outline:none;transition:border-color .2s}
+.wl-input::placeholder{color:rgba(11,11,11,0.4)}
+.wl-input:focus{border-color:rgba(11,11,11,0.5)}
+.wl-submit{width:100%;background:var(--black);color:var(--lime);font-family:'DM Sans',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;padding:13px;border:none;cursor:pointer;transition:opacity .2s}
+.wl-submit:hover{opacity:.85}
+.wl-ok{display:none;background:rgba(11,11,11,0.1);border:1px solid rgba(11,11,11,0.2);padding:11px 14px;font-size:.8rem;color:var(--black);font-weight:600;text-align:center}
+.wl-ok.show{display:block}
+
+footer{background:var(--gray);border-top:1px solid var(--border);padding:16px 20px;text-align:center}
+footer p{font-size:.68rem;color:rgba(242,240,232,0.18);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<nav class="look-nav">
+  <div class="look-nav-logo">LOOK</div>
+  <div class="look-nav-tag">Meet your kind</div>
+</nav>
+
+<div class="team-hero">
+  <img src="assets/look-team.png" alt="Il team di LOOK — Martino, Nerea e Giovanni">
+  <div class="team-hero-overlay"></div>
+  <div class="team-hero-text">
+    <div class="team-name">Martino, Nerea & Giovanni</div>
+    <div class="team-handle">@look_meetyourkind</div>
+  </div>
+</div>
+
+<div class="tagline-block">
+  <div class="tagline-eyebrow">Chi siamo</div>
+  <div class="tagline-title">STIAMO RIPORTANDO<br>LE PERSONE <span class="accent">ALLA PIAZZA.</span></div>
+  <div class="tagline-sub">Siamo i fondatori di LOOK — la maglietta che rompe il ghiaccio per te. Crediamo che le connessioni più belle nascano di persona, non dietro uno schermo.</div>
+</div>
+
+<div class="team-section">
+  <div class="section-label">Il team</div>
+  <div class="members">
+    <div class="member">
+      <div class="member-name">Martino</div>
+      <div class="member-role">Co-Founder</div>
+    </div>
+    <div class="member">
+      <div class="member-name">Nerea</div>
+      <div class="member-role">Co-Founder & Creative Designer</div>
+    </div>
+    <div class="member">
+      <div class="member-name">Giovanni</div>
+      <div class="member-role">Co-Founder</div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <a href="https://www.meetlook.fun" class="btn-lime-full">🌐 Scopri meetlook.fun</a>
+  <a href="https://www.instagram.com/look_meetyourkind/" target="_blank" class="btn-outline">📸 Seguici su Instagram</a>
+</div>
+
+<div class="waitlist-block">
+  <div class="wl-title">VUOI ANCHE TU<br>LA TUA MAGLIETTA?</div>
+  <div class="wl-sub">Entra nella waitlist — ti avvisiamo quando il drop è live.</div>
+  <div id="wlFormWrap">
+    <div class="wl-form">
+      <input class="wl-input" id="wlEmail" type="email" placeholder="la-tua@email.com">
+      <button class="wl-submit" onclick="submitWl()">Tienimi un posto ↗</button>
+    </div>
+  </div>
+  <div class="wl-ok" id="wlOk">⚡ Ci sei! Ti scriviamo presto.</div>
+</div>
+
+<footer>
+  <p>© 2025 LOOK — meet your kind · connessioni reali, nel mondo reale</p>
+</footer>
+
+<script>
+const AIRTABLE_TOKEN = 'patU23suVe847S9sP.abb908158bf9e062ce10afcb183baa192d3d3bbd520bed341ba8c367ee72d4df'; // ← sostituisci con il tuo token
+const AIRTABLE_BASE  = 'app0QZbJzhB0ELiuf';
+const AIRTABLE_TABLE = 'tblch5Z8O9eHEr8tE';
+
+async function submitWl() {
+  const email = document.getElementById('wlEmail').value.trim();
+  if (!email || !email.includes('@')) return;
+  const btn = document.querySelector('.wl-submit');
+  btn.textContent = '...'; btn.disabled = true;
+  try {
+    await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`, {
+      method: 'POST',
+      headers: {'Authorization': `Bearer ${AIRTABLE_TOKEN}`, 'Content-Type': 'application/json'},
+      body: JSON.stringify({fields: {'Email': email, 'Data': new Date().toISOString().split('T')[0]}})
+    });
+    document.getElementById('wlFormWrap').style.display = 'none';
+    document.getElementById('wlOk').classList.add('show');
+  } catch(e) {
+    btn.textContent = 'Tienimi un posto ↗'; btn.disabled = false;
+  }
+}
+</script>
+</body>
+</html>
