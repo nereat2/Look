@@ -11,6 +11,8 @@
 :root{--lime:#C6FF00;--black:#0b0b0b;--gray:#161616;--gray2:#1e1e1e;--white:#f2f0e8;--muted:rgba(242,240,232,0.42);--border:rgba(242,240,232,0.08)}
 html,body{min-height:100vh;background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .screen{display:none;flex-direction:column;min-height:100vh}
+html,body{min-height:100dvh}
+.screen{min-height:100dvh}
 .screen.active{display:flex}
 .look-nav{background:rgba(11,11,11,0.95);backdrop-filter:blur(8px);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;flex-shrink:0}
 .look-nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.15em;color:var(--white)}
@@ -32,16 +34,16 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
 .profile-tagline{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:.93;letter-spacing:.02em;text-transform:uppercase;color:var(--white);margin-bottom:8px}
 .profile-tagline .accent{color:var(--lime)}
 .profile-sub{font-size:.82rem;color:var(--muted);line-height:1.65;font-weight:300}
-.hero-banner{position:relative;width:100%;aspect-ratio:3/4;max-height:56vh;overflow:hidden;flex-shrink:0;background:var(--black)}
-.hero-banner-img{position:absolute;inset:0;background-size:cover;background-position:center 25%;-webkit-mask-image:linear-gradient(180deg,#000 60%,transparent 100%);mask-image:linear-gradient(180deg,#000 60%,transparent 100%)}
-.hero-banner-blur{position:absolute;left:0;right:0;bottom:0;height:58%;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 90%);mask-image:linear-gradient(180deg,transparent 0%,#000 90%);pointer-events:none}
+.hero-banner{position:relative;height:50vh;min-height:320px;max-height:480px;overflow:hidden;flex-shrink:0}
+.hero-banner-img{position:absolute;inset:0;background-size:cover;background-position:center 25%}
+.hero-banner-bottom-fade{position:absolute;left:0;right:0;bottom:0;height:35%;background:linear-gradient(180deg,rgba(11,11,11,0) 0%,rgba(11,11,11,0.97) 100%);pointer-events:none}
 .hero-banner-insta{position:absolute;right:16px;bottom:16px;z-index:2}
-.hero-banner-overlay{position:absolute;left:0;right:0;bottom:0;padding:24px 20px;background:linear-gradient(180deg,rgba(11,11,11,0) 35%,rgba(11,11,11,0.95) 100%)}
-.hero-banner-name{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:.04em;color:var(--white);line-height:1;margin-bottom:10px}
+.hero-banner-overlay{position:absolute;left:0;right:0;padding:24px 20px}
+.hero-banner-overlay.pos-bottom{bottom:0}
+.hero-banner-overlay.pos-top{top:0}
+.hero-banner-name{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:.04em;color:var(--white);line-height:1;margin-bottom:10px;text-shadow:0 2px 10px rgba(0,0,0,0.85),0 0 30px rgba(0,0,0,0.6)}
+.hero-banner-overlay .insta-pill{text-shadow:0 1px 6px rgba(0,0,0,0.7)}
 .hero-banner-phrase{padding:16px 20px 4px;font-size:.85rem;font-style:italic;color:rgba(242,240,232,0.55);line-height:1.5;flex-shrink:0}
-.hero-banner-overlay.overlay-strong{background:linear-gradient(180deg,rgba(11,11,11,0) 15%,rgba(11,11,11,0.97) 92%) !important}
-.hero-banner.hero-text-top .hero-banner-overlay{bottom:auto;top:0;background:linear-gradient(180deg,rgba(11,11,11,0.92) 0%,rgba(11,11,11,0) 65%)}
-.hero-banner.hero-text-top .hero-banner-overlay.overlay-strong{background:linear-gradient(180deg,rgba(11,11,11,0.98) 0%,rgba(11,11,11,0) 82%) !important}
 .bubbles-section{padding:20px;border-bottom:1px solid var(--border)}
 .section-label{font-size:.6rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .bubbles{display:flex;flex-wrap:wrap;gap:7px}
@@ -114,7 +116,7 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
 .error-screen .logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.15em;color:var(--white);margin-bottom:8px}
 .error-screen p{font-size:.9rem;color:var(--muted);line-height:1.7}
 .deck-head{padding:18px 20px 8px;flex-shrink:0}
-.deck-stack{flex:1;position:relative;margin:6px 20px 0;touch-action:none}
+.deck-stack{height:52vh;min-height:340px;max-height:480px;position:relative;margin:6px 20px 0;touch-action:none;flex-shrink:0}
 .deck-card{position:absolute;inset:0;border-radius:20px;overflow:hidden;background-size:cover;background-position:center;border:1px solid var(--border);will-change:transform;cursor:grab;user-select:none}
 .deck-card:active{cursor:grabbing}
 .deck-badge{position:absolute;top:16px;left:16px;width:48px;height:48px;border-radius:14px;background:rgba(11,11,11,0.55);backdrop-filter:blur(6px);border:1px solid rgba(198,255,0,0.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
@@ -181,8 +183,8 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
   </div>
   <div class="hero-banner" id="profileHeroBanner" style="display:none">
     <div class="hero-banner-img" id="heroBannerImg"></div>
-    <div class="hero-banner-blur"></div>
-    <div class="hero-banner-overlay" id="heroBannerOverlay">
+    <div class="hero-banner-bottom-fade"></div>
+    <div class="hero-banner-overlay pos-bottom" id="heroBannerOverlay">
       <div class="hero-banner-name" id="heroBannerName"></div>
     </div>
     <a class="insta-pill hero-banner-insta" id="heroBannerInsta" target="_blank" rel="noopener noreferrer"></a>
@@ -224,8 +226,7 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
     <button class="btn-lime-full btn-disabled" id="confirmBtn">Proponi l'avventura →</button>
   </div>
   <div class="waitlist-block">
-    <div class="wl-title">VUOI ANCHE TU<br>LA TUA MAGLIETTA?</div>
-    <div class="wl-sub">Crea il tuo profilo, scegli le passioni, lascia che le persone vengano da te.</div>
+    <div class="wl-title">VUOI LA TUA MAGLIETTA?</div>
     <div id="wlFormWrap">
       <div class="wl-form">
         <input class="wl-input" id="wlEmail" type="email" placeholder="la-tua@email.com">
@@ -233,15 +234,7 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
       </div>
     </div>
     <div class="wl-ok" id="wlOk">⚡ Ci sei! Ti scriviamo presto.</div>
-    <div class="wl-divider">
-      <div class="wl-divider-line"></div>
-      <div class="wl-divider-text">oppure</div>
-      <div class="wl-divider-line"></div>
-    </div>
-    <div class="wl-btns">
-      <a href="https://www.meetlook.fun" target="_blank" class="btn-outline-dark">🌐 Scopri meetlook.fun</a>
-      <a href="https://www.instagram.com/look_meetyourkind/" target="_blank" class="btn-outline-dark">📸 Seguici su Instagram</a>
-    </div>
+    <a href="https://www.meetlook.fun" target="_blank" style="display:block;text-align:center;margin-top:14px;font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,11,11,0.55);text-decoration:underline">meetlook.fun →</a>
   </div>
 </div>
 
@@ -289,7 +282,7 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
       <div class="msg-text" id="revealMsg"></div>
       <div class="msg-btns">
         <button class="msg-copy" id="revealCopy">Copia messaggio</button>
-        <a class="msg-insta" id="revealInsta" target="_blank" rel="noopener noreferrer">Apri Instagram →</a>
+        <a class="msg-insta" id="revealInsta" target="_blank" rel="noopener noreferrer">Manda un DM a Riki →</a>
       </div>
     </div>
   </div>
@@ -587,7 +580,7 @@ function initProfile(u) {
   if (u.phrase) {
     document.querySelector('.activities-section').style.display = 'none';
     const cta = document.getElementById('ctaBtn');
-    cta.textContent = 'Scopri cosa abbiamo in comune →';
+    cta.textContent = 'Vibe check →';
     cta.onclick = () => startDeck(u);
   } else {
     const ag = document.getElementById('actGrid');
@@ -667,11 +660,8 @@ function tuneHeroLegibility(imgUrl, bannerEl, overlayEl) {
       const scoreTop = top.mean + top.noise * 0.8;
 
       const useTop = scoreTop < scoreBottom - 15;
-      bannerEl.classList.toggle('hero-text-top', useTop);
-
-      const chosen = useTop ? top : bottom;
-      const busy = chosen.mean > 90 || chosen.noise > 45;
-      overlayEl.classList.toggle('overlay-strong', busy);
+      overlayEl.classList.toggle('pos-top', useTop);
+      overlayEl.classList.toggle('pos-bottom', !useTop);
     } catch (e) {
       // canvas non disponibile o immagine non analizzabile:
       // resta il comportamento di default (testo in basso, gradiente normale)
@@ -789,8 +779,12 @@ function showReveal(tags) {
     aff.textContent = 'Magari le prossime volte troviamo qualcosa in comune 👀';
   }
 
-  const firstTag = tags[0] || user.activities[0].tags[0];
-  const msg = `Ciao ${user.name}! Ho visto che ti piace ${firstTag}, ci si vede? 👋`;
+  const msgTemplates = [
+    (name, tag) => `Ehi ${name}! ${tag} in comune, direi che è un segno 👀`,
+    (name, tag) => `${name}! Anche tu con ${tag}? Ci si organizza? ⚡`,
+    (name, tag) => `Look mi ha fatto scoprire che ami ${tag}. Usciamo? 🤿`,
+  ];
+  const msg = msgTemplates[Math.floor(Math.random()*msgTemplates.length)](user.name, likedTags[0] || 'i tuoi interessi');
   document.getElementById('revealMsg').textContent = msg;
 
   const copyBtn = document.getElementById('revealCopy');
