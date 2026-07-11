@@ -333,6 +333,40 @@ const USERS = {
     },
   },
 
+  'riki': {
+    name: 'Riki',
+    insta: 'riki_dellavedova',
+    instaUrl: 'https://www.instagram.com/riki_dellavedova?igsh=ZTczdHk2ZnZ0dG5w',
+    city: 'Nerviano · disponibile nel weekend',
+    avatar: 'assets/riki.png',
+    initials: '',
+    bubbles: [
+      {label:'🤿 Diving',       style:'s'},
+      {label:'🎧 Music',        style:'s'},
+      {label:'🎉 Party',        style:'o'},
+      {label:'📺 Serie TV',     style:'o'},
+      {label:'🏐 Beach volley', style:'g'},
+    ],
+    activities: [
+      {icon:'🤿', name:'Immersione o snorkeling al lago',   tags:['Diving','Lago']},
+      {icon:'🏐', name:'Beach volley + aperitivo',           tags:['Beach volley','Social']},
+      {icon:'🎧', name:'Concerto o serata musica dal vivo',  tags:['Music','Milano']},
+      {icon:'🎉', name:'Serata clubbing in città',           tags:['Party','Nightlife']},
+    ],
+    slots: {
+      6:[
+        {time:'10:00', name:'Lago Maggiore (Angera)',   meta:'40 min da Nerviano · diving center', ai:'immersione guidata + pranzo lakefront'},
+        {time:'15:00', name:'Idroscalo Milano',          meta:'Milano · campi beach volley',         ai:'partita di beach volley + tuffo'},
+        {time:'21:00', name:'Blue Note Milano',          meta:'Milano · jazz club storico',          ai:'concerto + drink dopo'},
+      ],
+      7:[
+        {time:'11:00', name:'Lago Maggiore (Ispra)',     meta:'40 min da Nerviano · snorkeling',      ai:'giro in barca + snorkeling'},
+        {time:'16:00', name:'Idroscalo Milano',          meta:'Milano · beach volley + aperitivo',    ai:null},
+        {time:'22:00', name:'Corso Como / Navigli',      meta:'Milano · movida',                      ai:'giro locali + drink'},
+      ],
+    },
+  },
+
   'sonia': {
     name: 'Sonia',
     insta: 'vigasonia',
@@ -419,7 +453,12 @@ function initProfile(u) {
 
   // Meta
   document.getElementById('profileName').textContent = u.name;
-  document.getElementById('profileInsta').textContent = u.insta;
+  const instaEl = document.getElementById('profileInsta');
+  if (u.instaUrl) {
+    instaEl.innerHTML = `<a href="${u.instaUrl}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">${u.insta}</a>`;
+  } else {
+    instaEl.textContent = u.insta;
+  }
   document.getElementById('profileCity').textContent  = u.city;
 
   // Bubbles
