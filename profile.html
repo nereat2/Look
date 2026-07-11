@@ -22,8 +22,11 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
 .avatar-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid rgba(198,255,0,0.2);animation:ringpulse 2.5s ease-in-out infinite}
 @keyframes ringpulse{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.55;transform:scale(1.04)}}
 .profile-name{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:.04em;color:var(--white);line-height:1}
-.profile-insta{font-size:.8rem;color:var(--muted);margin-top:4px;display:flex;align-items:center;gap:4px}
+.profile-insta{font-size:.8rem;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:4px}
 .insta-at{color:var(--lime);font-weight:700}
+.insta-pill{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;background:rgba(198,255,0,0.1);border:1.5px solid rgba(198,255,0,0.35);border-radius:999px;color:var(--lime);font-size:.88rem;font-weight:700;letter-spacing:.01em;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:background .2s,border-color .2s}
+.insta-pill:active{background:rgba(198,255,0,0.2);border-color:rgba(198,255,0,0.55)}
+.insta-pill-arrow{font-size:.72rem;opacity:.75}
 .profile-city{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--muted);margin-top:6px}
 .city-dot{width:5px;height:5px;border-radius:50%;background:var(--lime);flex-shrink:0}
 .profile-tagline{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:.93;letter-spacing:.02em;text-transform:uppercase;color:var(--white);margin-bottom:8px}
@@ -55,6 +58,9 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
 .cal-back{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif}
 .cal-act-name{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:var(--white)}
 .week-strip{padding:16px 20px 14px;background:var(--gray);border-bottom:1px solid var(--border);flex-shrink:0}
+.week-tabs{display:flex;gap:6px;margin-bottom:12px}
+.week-tab{flex:1;text-align:center;padding:8px 6px;font-size:.64rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:rgba(242,240,232,0.04);border:1px solid var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s,color .15s,border-color .15s}
+.week-tab.active{background:var(--lime);color:var(--black);border-color:var(--lime)}
 .week-row{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
 .day{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px;cursor:pointer;border-radius:4px;transition:background .15s;-webkit-tap-highlight-color:transparent}
 .day.active{background:var(--lime)}
@@ -120,7 +126,7 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
       <div class="avatar" id="avatarEl"><div class="avatar-ring"></div></div>
       <div>
         <div class="profile-name" id="profileName"></div>
-        <div class="profile-insta"><span class="insta-at">@</span><span id="profileInsta"></span></div>
+        <div class="profile-insta" id="profileInstaWrap"><span class="insta-at">@</span><span id="profileInsta"></span></div>
         <div class="profile-city"><span class="city-dot"></span><span id="profileCity"></span></div>
       </div>
     </div>
@@ -147,6 +153,7 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
     <div class="cal-act-name" id="calActName"></div>
   </div>
   <div class="week-strip">
+    <div class="week-tabs" id="weekTabs"></div>
     <div class="section-label" style="margin-bottom:10px" id="weekLabel">Scegli un giorno</div>
     <div class="week-row" id="weekRow"></div>
   </div>
@@ -337,7 +344,7 @@ const USERS = {
     name: 'Riki',
     insta: 'riki_dellavedova',
     instaUrl: 'https://www.instagram.com/riki_dellavedova?igsh=ZTczdHk2ZnZ0dG5w',
-    city: 'Nerviano · disponibile nel weekend',
+    city: 'Nerviano',
     avatar: 'assets/riki.png',
     initials: '',
     bubbles: [
@@ -360,6 +367,16 @@ const USERS = {
         {time:'21:00', name:'Blue Note Milano',          meta:'Milano · jazz club storico',          ai:'concerto + drink dopo'},
       ],
       7:[
+        {time:'11:00', name:'Lago Maggiore (Ispra)',     meta:'40 min da Nerviano · snorkeling',      ai:'giro in barca + snorkeling'},
+        {time:'16:00', name:'Idroscalo Milano',          meta:'Milano · beach volley + aperitivo',    ai:null},
+        {time:'22:00', name:'Corso Como / Navigli',      meta:'Milano · movida',                      ai:'giro locali + drink'},
+      ],
+      13:[
+        {time:'10:00', name:'Lago Maggiore (Angera)',   meta:'40 min da Nerviano · diving center', ai:'immersione guidata + pranzo lakefront'},
+        {time:'16:00', name:'Idroscalo Milano',          meta:'Milano · campi beach volley',         ai:'partita di beach volley + tuffo'},
+        {time:'21:00', name:'Blue Note Milano',          meta:'Milano · jazz club storico',          ai:'concerto + drink dopo'},
+      ],
+      14:[
         {time:'11:00', name:'Lago Maggiore (Ispra)',     meta:'40 min da Nerviano · snorkeling',      ai:'giro in barca + snorkeling'},
         {time:'16:00', name:'Idroscalo Milano',          meta:'Milano · beach volley + aperitivo',    ai:null},
         {time:'22:00', name:'Corso Como / Navigli',      meta:'Milano · movida',                      ai:'giro locali + drink'},
@@ -410,16 +427,15 @@ const AIRTABLE_BASE  = 'app0QZbJzhB0ELiuf';
 const AIRTABLE_TABLE = 'tblch5Z8O9eHEr8tE';
 
 // ══════════════════════════════════════════════
-//  WEEK CONFIG — aggiorna le date ogni settimana
+//  WEEK CONFIG — aggiorna le date ogni 2 settimane
 // ══════════════════════════════════════════════
-const WEEK = [
-  {n:'Lun', d:2},
-  {n:'Mar', d:3},
-  {n:'Mer', d:4},
-  {n:'Gio', d:5},
-  {n:'Ven', d:6},
-  {n:'Sab', d:7},
-  {n:'Dom', d:8},
+const WEEKS = [
+  { label: 'Questa settimana', days: [
+    {n:'Lun', d:2}, {n:'Mar', d:3}, {n:'Mer', d:4}, {n:'Gio', d:5}, {n:'Ven', d:6}, {n:'Sab', d:7}, {n:'Dom', d:8},
+  ]},
+  { label: 'Prossima settimana', days: [
+    {n:'Lun', d:9}, {n:'Mar', d:10}, {n:'Mer', d:11}, {n:'Gio', d:12}, {n:'Ven', d:13}, {n:'Sab', d:14}, {n:'Dom', d:15},
+  ]},
 ];
 const WEEK_LABEL = 'Giugno 2025';
 
@@ -427,8 +443,18 @@ const WEEK_LABEL = 'Giugno 2025';
 //  INIT
 // ══════════════════════════════════════════════
 let selectedAct = '';
+let selectedWeek = 0;
 let selectedDay = 7;
 let selectedSlot = null;
+
+function findFirstSlot(u) {
+  for (let w = 0; w < WEEKS.length; w++) {
+    for (const day of WEEKS[w].days) {
+      if (u.slots[day.d]?.length) return { week: w, day: day.d };
+    }
+  }
+  return { week: 0, day: WEEKS[0].days[0].d };
+}
 
 const params = new URLSearchParams(window.location.search);
 const slug   = (params.get('u') || '').toLowerCase();
@@ -453,11 +479,11 @@ function initProfile(u) {
 
   // Meta
   document.getElementById('profileName').textContent = u.name;
-  const instaEl = document.getElementById('profileInsta');
+  const instaWrap = document.getElementById('profileInstaWrap');
   if (u.instaUrl) {
-    instaEl.innerHTML = `<a href="${u.instaUrl}" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">${u.insta}</a>`;
+    instaWrap.innerHTML = `<a href="${u.instaUrl}" target="_blank" rel="noopener noreferrer" class="insta-pill">📸 @${u.insta} <span class="insta-pill-arrow">↗</span></a>`;
   } else {
-    instaEl.textContent = u.insta;
+    instaWrap.innerHTML = `<span class="insta-at">@</span><span id="profileInsta">${u.insta}</span>`;
   }
   document.getElementById('profileCity').textContent  = u.city;
 
@@ -491,7 +517,9 @@ function initProfile(u) {
   });
 
   selectedAct = u.activities[0]?.name || '';
-  selectedDay = Object.keys(u.slots).map(Number).sort((a,b)=>a-b)[0] || WEEK[0].d;
+  const first = findFirstSlot(u);
+  selectedWeek = first.week;
+  selectedDay = first.day;
 
   renderWeek(u);
   renderSlots(u);
@@ -511,11 +539,21 @@ function goToScreen1() {
 }
 
 function renderWeek(u) {
+  const tabs = document.getElementById('weekTabs');
+  tabs.innerHTML = '';
+  WEEKS.forEach((w, i) => {
+    const t = document.createElement('div');
+    t.className = 'week-tab' + (i === selectedWeek ? ' active' : '');
+    t.textContent = w.label;
+    t.onclick = () => { selectedWeek = i; selectedDay = WEEKS[i].days[0].d; selectedSlot = null; renderWeek(); renderSlots(); resetConfirm(); };
+    tabs.appendChild(t);
+  });
+
   const row = document.getElementById('weekRow');
   row.innerHTML = '';
   document.getElementById('weekLabel').textContent = `${WEEK_LABEL} — scegli un giorno`;
   const userSlots = u ? u.slots : USERS[slug].slots;
-  WEEK.forEach(d => {
+  WEEKS[selectedWeek].days.forEach(d => {
     const hasSlots = !!userSlots[d.d]?.length;
     const el = document.createElement('div');
     el.className = 'day' + (d.d === selectedDay ? ' active' : '') + (hasSlots ? ' has-slots' : '');
@@ -527,7 +565,7 @@ function renderWeek(u) {
 
 function renderSlots(u) {
   const userSlots = u ? u.slots : USERS[slug].slots;
-  const dayObj = WEEK.find(d => d.d === selectedDay);
+  const dayObj = WEEKS[selectedWeek].days.find(d => d.d === selectedDay);
   document.getElementById('slotsLabel').textContent = `Slot disponibili — ${dayObj ? dayObj.n + ' ' + selectedDay : ''}`;
   const list = document.getElementById('slotsList');
   const slots = userSlots[selectedDay] || [];
