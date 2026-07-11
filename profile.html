@@ -16,7 +16,7 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
 .look-nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.15em;color:var(--white)}
 .look-nav-tag{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;background:rgba(198,255,0,0.1);color:var(--lime);border:1px solid rgba(198,255,0,0.2);padding:4px 9px}
 .profile-hero{background:var(--gray);padding:28px 20px 24px;border-bottom:1px solid var(--border);flex-shrink:0}
-.profile-top{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.profile-top{dimasplay:flex;align-items:center;gap:14px;margin-bottom:18px}
 .avatar{width:128px;height:128px;border-radius:50%;background:linear-gradient(135deg,#2a2a2a,#1a1a1a);border:2px solid rgba(198,255,0,0.3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--white);flex-shrink:0;position:relative;overflow:hidden}
 .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .avatar-ring{position:absolute;inset:-5px;border-radius:50%;border:1.5px solid rgba(198,255,0,0.2);animation:ringpulse 2.5s ease-in-out infinite}
@@ -32,13 +32,21 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
 .profile-tagline{font-family:'Bebas Neue',sans-serif;font-size:3rem;line-height:.93;letter-spacing:.02em;text-transform:uppercase;color:var(--white);margin-bottom:8px}
 .profile-tagline .accent{color:var(--lime)}
 .profile-sub{font-size:.82rem;color:var(--muted);line-height:1.65;font-weight:300}
+.hero-banner{position:relative;width:100%;aspect-ratio:3/4;max-height:56vh;overflow:hidden;flex-shrink:0;background:var(--black)}
+.hero-banner-img{position:absolute;inset:0;background-size:cover;background-position:center 25%;-webkit-mask-image:linear-gradient(180deg,#000 60%,transparent 100%);mask-image:linear-gradient(180deg,#000 60%,transparent 100%)}
+.hero-banner-blur{position:absolute;left:0;right:0;bottom:0;height:58%;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 90%);mask-image:linear-gradient(180deg,transparent 0%,#000 90%);pointer-events:none}
+.hero-banner-insta{position:absolute;right:16px;bottom:16px;z-index:2}
+.hero-banner-overlay{position:absolute;left:0;right:0;bottom:0;padding:24px 20px;background:linear-gradient(180deg,rgba(11,11,11,0) 35%,rgba(11,11,11,0.95) 100%)}
+.hero-banner-name{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:.04em;color:var(--white);line-height:1;margin-bottom:10px}
+.hero-banner-phrase{padding:16px 20px 4px;font-size:.85rem;font-style:italic;color:rgba(242,240,232,0.55);line-height:1.5;flex-shrink:0}
+.hero-banner-overlay.overlay-strong{background:linear-gradient(180deg,rgba(11,11,11,0) 15%,rgba(11,11,11,0.97) 92%) !important}
+.hero-banner.hero-text-top .hero-banner-overlay{bottom:auto;top:0;background:linear-gradient(180deg,rgba(11,11,11,0.92) 0%,rgba(11,11,11,0) 65%)}
+.hero-banner.hero-text-top .hero-banner-overlay.overlay-strong{background:linear-gradient(180deg,rgba(11,11,11,0.98) 0%,rgba(11,11,11,0) 82%) !important}
 .bubbles-section{padding:20px;border-bottom:1px solid var(--border)}
 .section-label{font-size:.6rem;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
 .bubbles{display:flex;flex-wrap:wrap;gap:7px}
-.bubble{padding:7px 14px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap}
-.bubble.s{background:var(--lime);color:var(--black)}
-.bubble.o{background:transparent;border:1.5px solid var(--lime);color:var(--lime)}
-.bubble.g{background:rgba(198,255,0,0.06);border:1px solid rgba(198,255,0,0.18);color:rgba(198,255,0,0.5)}
+.bubble{padding:7px 14px;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.05em;white-space:nowrap;background:transparent;border:1.5px solid var(--lime);color:var(--lime);animation:bubblePop .4s ease backwards}
+@keyframes bubblePop{0%{opacity:0;transform:scale(.7) rotate(0deg)}100%{opacity:1;transform:scale(1) rotate(var(--rot))}}
 .activities-section{padding:20px;flex:1}
 .act-grid{display:flex;flex-direction:column;gap:8px;margin-top:12px}
 .act-card{background:var(--gray2);border:1px solid var(--border);padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .2s,background .2s;position:relative;overflow:hidden}
@@ -105,6 +113,44 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
 .error-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 24px;text-align:center;gap:16px}
 .error-screen .logo{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.15em;color:var(--white);margin-bottom:8px}
 .error-screen p{font-size:.9rem;color:var(--muted);line-height:1.7}
+.deck-head{padding:18px 20px 8px;flex-shrink:0}
+.deck-stack{flex:1;position:relative;margin:6px 20px 0;touch-action:none}
+.deck-card{position:absolute;inset:0;border-radius:20px;overflow:hidden;background-size:cover;background-position:center;border:1px solid var(--border);will-change:transform;cursor:grab;user-select:none}
+.deck-card:active{cursor:grabbing}
+.deck-badge{position:absolute;top:16px;left:16px;width:48px;height:48px;border-radius:14px;background:rgba(11,11,11,0.55);backdrop-filter:blur(6px);border:1px solid rgba(198,255,0,0.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.deck-info{position:absolute;left:20px;right:20px;bottom:22px}
+.deck-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;line-height:1;letter-spacing:.03em;color:var(--white);margin-bottom:10px}
+.deck-tags{display:flex;gap:6px;flex-wrap:wrap}
+.deck-tag{font-size:.62rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;background:rgba(198,255,0,0.15);border:1px solid rgba(198,255,0,0.4);color:var(--lime)}
+.deck-stamp{position:absolute;top:26px;font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.08em;padding:4px 16px;border-radius:10px;opacity:0;pointer-events:none}
+.deck-stamp.yes{right:20px;color:var(--lime);border:3px solid var(--lime);transform:rotate(12deg)}
+.deck-stamp.no{left:20px;color:var(--muted);border:3px solid var(--muted);transform:rotate(-12deg)}
+.deck-actions{display:flex;justify-content:center;gap:28px;padding:20px 20px 34px;flex-shrink:0}
+.deck-btn{width:64px;height:64px;border-radius:50%;border:1.5px solid var(--border);background:var(--gray2);font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,border-color .2s;-webkit-tap-highlight-color:transparent}
+.deck-btn:active{transform:scale(.92)}
+.deck-btn.no{color:var(--muted)}
+.deck-btn.yes{color:var(--lime);border-color:rgba(198,255,0,0.4);background:rgba(198,255,0,0.08)}
+.gen-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px;text-align:center;gap:28px}
+.gen-dots{display:flex;gap:12px}
+.gen-dots span{width:12px;height:12px;border-radius:50%;background:var(--lime);animation:gendot 1.2s ease-in-out infinite}
+.gen-dots span:nth-child(2){animation-delay:.2s}
+.gen-dots span:nth-child(3){animation-delay:.4s}
+@keyframes gendot{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:1;transform:scale(1)}}
+.gen-phrase{font-size:1.15rem;font-style:italic;font-weight:300;color:var(--white);line-height:1.5;opacity:0;animation:genfade .8s ease forwards;animation-delay:.5s}
+@keyframes genfade{to{opacity:1}}
+.reveal-hero{padding:28px 20px 24px;flex-shrink:0}
+.reveal-affinity{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;line-height:1.15;letter-spacing:.02em;color:var(--white);margin:8px 0 22px;display:flex;flex-wrap:wrap;align-items:center;gap:7px}
+.rev-tag{font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 11px;border-radius:999px;background:var(--lime);color:var(--black)}
+.msg-box{background:var(--gray2);border:1px solid rgba(198,255,0,0.15);padding:18px}
+.msg-label{font-size:.58rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);margin-bottom:10px}
+.msg-text{font-size:.95rem;color:var(--white);line-height:1.5;margin-bottom:16px}
+.msg-btns{display:flex;flex-direction:column;gap:8px}
+.msg-copy,.msg-insta{width:100%;font-family:'DM Sans',sans-serif;font-weight:700;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;padding:13px;border:none;cursor:pointer;text-align:center;text-decoration:none;transition:opacity .2s}
+.msg-copy{background:transparent;border:1.5px solid rgba(198,255,0,0.4);color:var(--lime)}
+.msg-copy:active{opacity:.7}
+.msg-insta{background:var(--lime);color:var(--black)}
+.msg-insta:active{opacity:.85}
+.wl-counter{font-size:.72rem;font-weight:700;letter-spacing:.04em;color:#0b0b0b;background:rgba(11,11,11,0.08);border:1px solid rgba(11,11,11,0.15);padding:9px 12px;margin-bottom:14px;text-align:center}
 </style>
 </head>
 <body>
@@ -121,7 +167,7 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
     </a>
     <div class="look-nav-tag">Meet your kind</div>
   </div>
-  <div class="profile-hero">
+  <div class="profile-hero" id="profileHero">
     <div class="profile-top">
       <div class="avatar" id="avatarEl"><div class="avatar-ring"></div></div>
       <div>
@@ -133,6 +179,15 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
     <div class="profile-tagline">FACCIAMO <span class="accent">QUALCOSA</span> INSIEME?</div>
     <div class="profile-sub">Scegli un'attività tra quelle che mi piacciono — l'AI trova il posto e il momento giusto.</div>
   </div>
+  <div class="hero-banner" id="profileHeroBanner" style="display:none">
+    <div class="hero-banner-img" id="heroBannerImg"></div>
+    <div class="hero-banner-blur"></div>
+    <div class="hero-banner-overlay" id="heroBannerOverlay">
+      <div class="hero-banner-name" id="heroBannerName"></div>
+    </div>
+    <a class="insta-pill hero-banner-insta" id="heroBannerInsta" target="_blank" rel="noopener noreferrer"></a>
+  </div>
+  <div class="hero-banner-phrase" id="heroBannerPhrase" style="display:none"></div>
   <div class="bubbles-section">
     <div class="section-label">Le mie passioni</div>
     <div class="bubbles" id="bubblesEl"></div>
@@ -142,7 +197,7 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
     <div class="act-grid" id="actGrid"></div>
   </div>
   <div class="cta-bar">
-    <button class="btn-lime-full" onclick="goToCalendar()">Scegli quando →</button>
+    <button class="btn-lime-full" id="ctaBtn" onclick="goToCalendar()">Scegli quando →</button>
   </div>
 </div>
 
@@ -188,6 +243,57 @@ html,body{min-height:100vh;background:var(--black);color:var(--white);font-famil
       <a href="https://www.instagram.com/look_meetyourkind/" target="_blank" class="btn-outline-dark">📸 Seguici su Instagram</a>
     </div>
   </div>
+</div>
+
+<!-- SCREEN DECK — SWIPE -->
+<div class="screen" id="screenDeck">
+  <div class="cal-topbar">
+    <button class="cal-back" onclick="goToScreen1()">← Indietro</button>
+    <div class="cal-act-name">Ti va di...?</div>
+  </div>
+  <div class="deck-head">
+    <div class="section-label">Swipe a destra se ti piace, a sinistra se passi</div>
+  </div>
+  <div class="deck-stack" id="deckStack"></div>
+  <div class="deck-actions">
+    <button class="deck-btn no" onclick="deckButton(false)">✕</button>
+    <button class="deck-btn yes" onclick="deckButton(true)">♥</button>
+  </div>
+</div>
+
+<!-- SCREEN GENERATING -->
+<div class="screen" id="screenGenerating">
+  <div class="gen-wrap">
+    <div class="gen-dots"><span></span><span></span><span></span></div>
+    <div class="gen-phrase" id="genPhrase"></div>
+  </div>
+</div>
+
+<!-- SCREEN REVEAL -->
+<div class="screen" id="screenReveal">
+  <div class="look-nav">
+    <a href="index.html" class="look-nav-logo-wrap" style="display:block;height:24px;width:auto;">
+      <svg viewBox="0 0 475.99 158.18" style="height:100%;width:auto;display:block;">
+        <path fill="#C6FF00" d="M354.81,114.93c-19.19,11.68-47.57,6.45-65.63-5.26l-57.76-37.44-46.21,31.07c-10.36,6.96-21.07,12.42-33.04,15.95-25.82,7.63-57.14-2.07-59.08-28.22-1.13-15.31,8.42-29.03,24.15-31.28-4.43,6.65-5.62,13.67-4.78,21.49l-6.91-2.92c-4.79,7.06-3.69,16.04,1.98,22.35,11.41,12.71,33.19,12.4,49.73,5.58,10.83-4.47,20.26-10.48,30.05-16.97l34.96-23.19-59.02-38.81c3.11-5.36,3.61-11.96-1.36-15.01-3.53-2.17-9.21-1.81-13.15.53-2.77,1.65-4.95,5.43-5.55,9.85-5.33-3.86-6.09-11.84-1.88-16.04,4.94-4.94,10.93-7.54,17.62-6.31,5.61,1.03,11.89,4.01,14.43,10.4,1.56,3.92.94,9-.25,13.44l59.1,35.98c19.88-12.38,39.72-24.16,60.73-35.55-1.88-6.7-1.28-13.72,3.42-18.57s11.01-6.98,17.95-5.53c6.02,1.26,12.09,4.67,13.01,11.65.44,3.37-1.98,7.77-4.55,10.8-1.5-5.62-3.65-9.35-8.26-11.12s-10.2-.98-12.85,3.96c-1.72,3.2-.26,7.71,1.93,11.83l-62.27,38.74,45.06,29.17c20.82,13.47,46.92,23.06,67.18,7.28,7.43-5.79,10.49-16.04,5.4-23.95-1.96-.81-5.07.94-7.75,2.83,1.62-7.68,1.05-14.87-3.88-22.03,8.83,1.63,16.2,6.63,19.98,14.03,7.64,14.95,1.77,32.6-12.48,41.28Z"/>
+        <polygon fill="#FFF" points="435.1 56.96 475.99 100.37 452.53 100.59 417.73 63.44 417.46 100.55 399.83 100.7 399.82 17.19 417.4 17.27 417.76 52.32 451.25 17.3 474.49 17.27 435.1 56.96"/>
+        <polygon fill="#FFF" points="63.91 84.5 63.84 100.63 0 100.55 .01 17.13 17.49 17.36 17.49 84.47 63.91 84.5"/>
+      </svg>
+    </a>
+    <div class="look-nav-tag">Meet your kind</div>
+  </div>
+  <div class="reveal-hero">
+    <div class="section-label">Il verdetto</div>
+    <div class="reveal-affinity" id="revealAffinity"></div>
+    <div class="msg-box">
+      <div class="msg-label">Messaggio suggerito</div>
+      <div class="msg-text" id="revealMsg"></div>
+      <div class="msg-btns">
+        <button class="msg-copy" id="revealCopy">Copia messaggio</button>
+        <a class="msg-insta" id="revealInsta" target="_blank" rel="noopener noreferrer">Apri Instagram →</a>
+      </div>
+    </div>
+  </div>
+  <div id="revealWaitlistMount"></div>
 </div>
 
 <!-- ERROR SCREEN — utente non trovato -->
@@ -345,8 +451,9 @@ const USERS = {
     insta: 'riki_dellavedova',
     instaUrl: 'https://www.instagram.com/riki_dellavedova?igsh=ZTczdHk2ZnZ0dG5w',
     city: 'Nerviano',
-    avatar: 'assets/riki.png',
+    avatar: 'assets/riki.webp',
     initials: '',
+    phrase: 'Karma is lika e 69, you get what you give',
     bubbles: [
       {label:'🤿 Diving',       style:'s'},
       {label:'🎧 Music',        style:'s'},
@@ -355,33 +462,11 @@ const USERS = {
       {label:'🏐 Beach volley', style:'g'},
     ],
     activities: [
-      {icon:'🤿', name:'Immersione o snorkeling al lago',   tags:['Diving','Lago']},
-      {icon:'🏐', name:'Beach volley + aperitivo',           tags:['Beach volley','Social']},
-      {icon:'🎧', name:'Concerto o serata musica dal vivo',  tags:['Music','Milano']},
-      {icon:'🎉', name:'Serata clubbing in città',           tags:['Party','Nightlife']},
+      {icon:'🤿', name:'Immersione o snorkeling al lago',   tags:['Diving','Lago'],          img:'assets/activity-diving.webp'},
+      {icon:'🏐', name:'Beach volley + aperitivo',           tags:['Beach volley','Social'],  img:'assets/activity-beachvolley.webp'},
+      {icon:'🎧', name:'Concerto o serata musica dal vivo',  tags:['Music','Milano'],         img:'assets/activity-music.webp'},
+      {icon:'🎉', name:'Serata clubbing in città',           tags:['Party','Nightlife'],      img:'assets/activity-party.webp'},
     ],
-    slots: {
-      6:[
-        {time:'10:00', name:'Lago Maggiore (Angera)',   meta:'40 min da Nerviano · diving center', ai:'immersione guidata + pranzo lakefront'},
-        {time:'15:00', name:'Idroscalo Milano',          meta:'Milano · campi beach volley',         ai:'partita di beach volley + tuffo'},
-        {time:'21:00', name:'Blue Note Milano',          meta:'Milano · jazz club storico',          ai:'concerto + drink dopo'},
-      ],
-      7:[
-        {time:'11:00', name:'Lago Maggiore (Ispra)',     meta:'40 min da Nerviano · snorkeling',      ai:'giro in barca + snorkeling'},
-        {time:'16:00', name:'Idroscalo Milano',          meta:'Milano · beach volley + aperitivo',    ai:null},
-        {time:'22:00', name:'Corso Como / Navigli',      meta:'Milano · movida',                      ai:'giro locali + drink'},
-      ],
-      13:[
-        {time:'10:00', name:'Lago Maggiore (Angera)',   meta:'40 min da Nerviano · diving center', ai:'immersione guidata + pranzo lakefront'},
-        {time:'16:00', name:'Idroscalo Milano',          meta:'Milano · campi beach volley',         ai:'partita di beach volley + tuffo'},
-        {time:'21:00', name:'Blue Note Milano',          meta:'Milano · jazz club storico',          ai:'concerto + drink dopo'},
-      ],
-      14:[
-        {time:'11:00', name:'Lago Maggiore (Ispra)',     meta:'40 min da Nerviano · snorkeling',      ai:'giro in barca + snorkeling'},
-        {time:'16:00', name:'Idroscalo Milano',          meta:'Milano · beach volley + aperitivo',    ai:null},
-        {time:'22:00', name:'Corso Como / Navigli',      meta:'Milano · movida',                      ai:'giro locali + drink'},
-      ],
-    },
   },
 
   'sonia': {
@@ -489,41 +574,110 @@ function initProfile(u) {
 
   // Bubbles
   const bEl = document.getElementById('bubblesEl');
-  u.bubbles.forEach(b => {
+  u.bubbles.forEach((b, i) => {
     const s = document.createElement('span');
-    s.className = `bubble ${b.style}`;
+    s.className = 'bubble';
     s.textContent = b.label;
+    const rot = (Math.random() * 8 - 4).toFixed(1);
+    s.style.setProperty('--rot', `${rot}deg`);
+    s.style.animationDelay = `${i * 0.05}s`;
     bEl.appendChild(s);
   });
 
-  // Activities
-  const ag = document.getElementById('actGrid');
-  u.activities.forEach((a, i) => {
-    const el = document.createElement('div');
-    el.className = 'act-card' + (i === 0 ? ' sel' : '');
-    el.innerHTML = `
-      <div class="act-icon">${a.icon}</div>
-      <div style="flex:1">
-        <div class="act-name">${a.name}</div>
-        <div class="act-tags">${a.tags.map(t=>`<span class="act-tag">${t}</span>`).join('')}</div>
-      </div>
-      <div class="act-arrow">›</div>`;
-    el.onclick = () => {
-      document.querySelectorAll('.act-card').forEach(c => c.classList.remove('sel'));
-      el.classList.add('sel');
-      selectedAct = a.name;
-    };
-    ag.appendChild(el);
-  });
+  if (u.phrase) {
+    document.querySelector('.activities-section').style.display = 'none';
+    const cta = document.getElementById('ctaBtn');
+    cta.textContent = 'Scopri cosa abbiamo in comune →';
+    cta.onclick = () => startDeck(u);
+  } else {
+    const ag = document.getElementById('actGrid');
+    u.activities.forEach((a, i) => {
+      const el = document.createElement('div');
+      el.className = 'act-card' + (i === 0 ? ' sel' : '');
+      el.innerHTML = `
+        <div class="act-icon">${a.icon}</div>
+        <div style="flex:1">
+          <div class="act-name">${a.name}</div>
+          <div class="act-tags">${a.tags.map(t=>`<span class="act-tag">${t}</span>`).join('')}</div>
+        </div>
+        <div class="act-arrow">›</div>`;
+      el.onclick = () => {
+        document.querySelectorAll('.act-card').forEach(c => c.classList.remove('sel'));
+        el.classList.add('sel');
+        selectedAct = a.name;
+      };
+      ag.appendChild(el);
+    });
 
-  selectedAct = u.activities[0]?.name || '';
-  const first = findFirstSlot(u);
-  selectedWeek = first.week;
-  selectedDay = first.day;
+    selectedAct = u.activities[0]?.name || '';
+    const first = findFirstSlot(u);
+    selectedWeek = first.week;
+    selectedDay = first.day;
 
-  renderWeek(u);
-  renderSlots(u);
+    renderWeek(u);
+    renderSlots(u);
+  }
+
+  if (u.avatar && u.phrase) {
+    document.getElementById('profileHero').style.display = 'none';
+    const banner = document.getElementById('profileHeroBanner');
+    banner.style.display = 'block';
+    document.getElementById('heroBannerImg').style.backgroundImage = `url('${u.avatar}')`;
+    tuneHeroLegibility(u.avatar, banner, document.getElementById('heroBannerOverlay'));
+    document.getElementById('heroBannerName').textContent = u.name;
+    const bi = document.getElementById('heroBannerInsta');
+    bi.href = u.instaUrl || `https://instagram.com/${u.insta}`;
+    bi.innerHTML = `📸 @${u.insta} <span class="insta-pill-arrow">↗</span>`;
+    const hp = document.getElementById('heroBannerPhrase');
+    hp.textContent = `"${u.phrase}"`;
+    hp.style.display = 'block';
+  }
+
   document.getElementById('screen1').classList.add('active');
+}
+
+function tuneHeroLegibility(imgUrl, bannerEl, overlayEl) {
+  const img = new Image();
+  img.onload = () => {
+    try {
+      const w = 60, h = Math.round(w * img.height / img.width);
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      const data = ctx.getImageData(0, 0, w, h).data;
+
+      function bandStats(yStart, yEnd) {
+        let sum = 0, sumSq = 0, n = 0;
+        for (let y = yStart; y < yEnd; y++) {
+          for (let x = 0; x < w; x++) {
+            const i = (y * w + x) * 4;
+            const lum = 0.299*data[i] + 0.587*data[i+1] + 0.114*data[i+2];
+            sum += lum; sumSq += lum * lum; n++;
+          }
+        }
+        const mean = sum / n;
+        const variance = Math.max(0, sumSq / n - mean * mean);
+        return { mean, noise: Math.sqrt(variance) };
+      }
+
+      const bottom = bandStats(Math.floor(h * 0.7), h);
+      const top = bandStats(0, Math.floor(h * 0.25));
+      const scoreBottom = bottom.mean + bottom.noise * 0.8;
+      const scoreTop = top.mean + top.noise * 0.8;
+
+      const useTop = scoreTop < scoreBottom - 15;
+      bannerEl.classList.toggle('hero-text-top', useTop);
+
+      const chosen = useTop ? top : bottom;
+      const busy = chosen.mean > 90 || chosen.noise > 45;
+      overlayEl.classList.toggle('overlay-strong', busy);
+    } catch (e) {
+      // canvas non disponibile o immagine non analizzabile:
+      // resta il comportamento di default (testo in basso, gradiente normale)
+    }
+  };
+  img.src = imgUrl;
 }
 
 function goToCalendar() {
@@ -533,9 +687,132 @@ function goToCalendar() {
   window.scrollTo(0, 0);
 }
 function goToScreen1() {
-  document.getElementById('screen2').classList.remove('active');
-  document.getElementById('screen1').classList.add('active');
+  showScreen('screen1');
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
+}
+
+// ══════════════════════════════════════════════
+//  SWIPE DECK → GENERAZIONE → REVEAL
+// ══════════════════════════════════════════════
+let deckActivities = [];
+let deckIndex = 0;
+let likedTags = [];
+
+function startDeck(u) {
+  deckActivities = u.activities;
+  deckIndex = 0;
+  likedTags = [];
+  const stack = document.getElementById('deckStack');
+  stack.innerHTML = '';
+  deckActivities.forEach((a, i) => {
+    const c = document.createElement('div');
+    c.className = 'deck-card';
+    c.style.zIndex = deckActivities.length - i;
+    c.style.backgroundImage = `linear-gradient(to bottom, rgba(11,11,11,0) 30%, rgba(11,11,11,0.92) 100%), url('${a.img}')`;
+    c.innerHTML = `
+      <div class="deck-badge">${a.icon}</div>
+      <div class="deck-stamp yes">SI</div>
+      <div class="deck-stamp no">PASSA</div>
+      <div class="deck-info">
+        <div class="deck-name">${a.name}</div>
+        <div class="deck-tags">${a.tags.map(t=>`<span class="deck-tag">${t}</span>`).join('')}</div>
+      </div>`;
+    stack.appendChild(c);
+  });
+  armTop();
+  showScreen('screenDeck');
+}
+
+function armTop() {
+  const card = document.querySelectorAll('.deck-card')[deckIndex];
+  if (!card) return;
+  const yes = card.querySelector('.deck-stamp.yes');
+  const no  = card.querySelector('.deck-stamp.no');
+  let startX = 0, startY = 0, dx = 0, dy = 0, active = false;
+  card.addEventListener('pointerdown', e => {
+    active = true; startX = e.clientX; startY = e.clientY;
+    card.style.transition = 'none'; card.setPointerCapture(e.pointerId);
+  });
+  card.addEventListener('pointermove', e => {
+    if (!active) return;
+    dx = e.clientX - startX; dy = e.clientY - startY;
+    card.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx * 0.05}deg)`;
+    yes.style.opacity = Math.max(0, dx / 100);
+    no.style.opacity  = Math.max(0, -dx / 100);
+  });
+  const end = () => {
+    if (!active) return;
+    active = false;
+    card.style.transition = 'transform .3s ease';
+    if (Math.abs(dx) > 100) {
+      decide(dx > 0);
+    } else {
+      card.style.transform = '';
+      yes.style.opacity = 0; no.style.opacity = 0;
+    }
+  };
+  card.addEventListener('pointerup', end);
+  card.addEventListener('pointercancel', end);
+}
+
+function deckButton(liked) {
+  if (deckIndex < deckActivities.length) decide(liked);
+}
+
+function decide(liked) {
+  const card = document.querySelectorAll('.deck-card')[deckIndex];
+  const act  = deckActivities[deckIndex];
+  if (liked) act.tags.forEach(t => { if (!likedTags.includes(t)) likedTags.push(t); });
+  card.style.transition = 'transform .35s ease, opacity .35s ease';
+  card.style.transform = `translate(${liked ? 600 : -600}px, 40px) rotate(${liked ? 30 : -30}deg)`;
+  card.style.opacity = 0;
+  deckIndex++;
+  setTimeout(() => { deckIndex >= deckActivities.length ? showGenerating() : armTop(); }, 260);
+}
+
+function showGenerating() {
+  document.getElementById('genPhrase').textContent = user.phrase || '';
+  showScreen('screenGenerating');
+  setTimeout(() => showReveal(likedTags), 2000);
+}
+
+function showReveal(tags) {
+  const aff = document.getElementById('revealAffinity');
+  if (tags.length) {
+    aff.innerHTML = `Tu e ${user.name}: ` + tags.map(t => `<span class="rev-tag">${t}</span>`).join('');
+  } else {
+    aff.textContent = 'Magari le prossime volte troviamo qualcosa in comune 👀';
+  }
+
+  const firstTag = tags[0] || user.activities[0].tags[0];
+  const msg = `Ciao ${user.name}! Ho visto che ti piace ${firstTag}, ci si vede? 👋`;
+  document.getElementById('revealMsg').textContent = msg;
+
+  const copyBtn = document.getElementById('revealCopy');
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(msg);
+    copyBtn.textContent = 'Copiato ✓';
+    setTimeout(() => copyBtn.textContent = 'Copia messaggio', 1800);
+  };
+  document.getElementById('revealInsta').href = user.instaUrl;
+
+  const wl = document.querySelector('.waitlist-block');
+  document.getElementById('revealWaitlistMount').appendChild(wl);
+  if (!document.getElementById('wlCounter')) {
+    const n = Math.floor(Math.random() * 80) + 90;
+    const counter = document.createElement('div');
+    counter.id = 'wlCounter';
+    counter.className = 'wl-counter';
+    counter.textContent = `Le prime 50 magliette sono in produzione · Sei il #${n} in lista`;
+    wl.insertBefore(counter, document.getElementById('wlFormWrap'));
+  }
+
+  showScreen('screenReveal');
 }
 
 function renderWeek(u) {
